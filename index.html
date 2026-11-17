@@ -606,6 +606,205 @@ body.mnt #m .ov{z-index:140}body.mnt .ts{z-index:150}
 .pbd .csb.soo,.pbd .csb.scb{overflow:hidden}
 .pbd .csb.soo::after,.pbd .csb.scb::after{content:"";position:absolute;top:0;bottom:0;left:-70%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);animation:csbShine 3s ease-in-out infinite;pointer-events:none}
 @media (prefers-reduced-motion:reduce){.pbd .csb.bsl,.pbd .csb.nwb,.pbd .csb.low,.pbd .csb.soo,.pbd .csb.scb,.pbd .csb.soo::after,.pbd .csb.scb::after{animation:none!important}}
+
+/* ===== REFONTE NÉON v43 ===== */
+/* ================================================================
+   REFONTE NÉON v43 — vert flash / noir / blanc
+   Couche de style ajoutée à la fin : aucune logique JS modifiée.
+   Couleur d'accent = --c1 (réglable dans l'admin). Tout le reste est noir & blanc.
+   ================================================================ */
+:root{
+  --bg:#040704!important;--cd:#0b110b!important;--tx:#fff!important;--mu:#a9bbaa!important;--ln:rgba(255,255,255,.14)!important;
+  --c2:#fff!important;--c2t:#04140a!important;--ht:#fff!important;color-scheme:dark!important;
+  --nk:rgba(8,12,8,.86);--nk2:rgba(16,24,16,.94);
+  --ng:color-mix(in srgb,var(--c1) 62%,transparent);
+  --nb:color-mix(in srgb,var(--c1) 40%,transparent);
+  --nt:var(--c1t,#03100a);
+  --x3:0 0 20px color-mix(in srgb,var(--c1) 45%,transparent);
+  --rl-bd:color-mix(in srgb,var(--c1) 38%,transparent);--rl-sheen:none;--rl-edge:transparent;
+  --rl-sh:0 10px 24px -16px rgba(0,0,0,.9);
+  --rl-sh-h:0 0 0 1px var(--c1),0 0 28px -8px color-mix(in srgb,var(--c1) 62%,transparent)
+}
+html{background:#040704;scrollbar-color:var(--c1) #040704}
+body{background:transparent}
+body::after{
+  background:radial-gradient(120% 55% at 50% -8%,color-mix(in srgb,var(--c1) 26%,transparent),transparent 62%),
+             linear-gradient(180deg,rgba(0,10,0,.10),rgba(0,0,0,.38)),
+             var(--bgi,none) center/cover;
+  filter:blur(3px) brightness(.72) saturate(1.15);transform:scale(1.06)}
+::selection{background:var(--c1);color:#03100a}
+@supports (animation-timeline:scroll()){html::after{background:var(--c1);box-shadow:0 0 12px var(--c1)}}
+@keyframes pcGlow{
+  0%,100%{box-shadow:0 0 0 1px color-mix(in srgb,var(--c1) 55%,transparent),0 0 10px -2px color-mix(in srgb,var(--c1) 50%,transparent)}
+  50%{box-shadow:0 0 0 1px var(--c1),0 0 26px -2px color-mix(in srgb,var(--c1) 80%,transparent)}}
+
+/* ---------- Boutons ---------- */
+:root:root .b:not(.b2):not(:disabled){box-shadow:0 0 22px -6px var(--ng),0 8px 16px -10px rgba(0,0,0,.9);text-shadow:none}
+:root:root .b:not(.b2):not(:disabled):active{transform:scale(.97);box-shadow:0 0 10px -4px var(--ng)}
+:root:root .b:disabled{opacity:.35}
+:root:root .b2{background:rgba(10,16,10,.8);color:#fff;border:1px solid rgba(255,255,255,.24);box-shadow:none;text-shadow:none}
+:root:root .b2:active{transform:scale(.96);box-shadow:none}
+:root:root .bs{border-radius:999px}
+:root:root .bar{padding:12px 0 8px}
+:root:root .bar .b2{border-color:var(--nb);box-shadow:0 0 18px -8px var(--ng)}
+@media(hover:hover){:root:root .b2:hover{border-color:var(--c1);box-shadow:0 0 18px -6px var(--ng)}}
+:root:root .lk{color:var(--mu)}
+/* ---------- Bouton COMMANDER ---------- */
+:root:root .cta{margin:4px 0 8px}
+:root:root .cta .b{width:100%;max-width:360px;min-width:0;padding:17px 28px;border-radius:16px;font-family:var(--f3);font-weight:600;font-size:22px;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 0 0 1px color-mix(in srgb,var(--c1) 55%,#fff),0 0 34px -4px var(--ng),0 14px 24px -14px rgba(0,0,0,.95)}
+/* ---------- Logo & bandeau ---------- */
+:root:root .brand{margin:4px 0 18px}
+:root:root .brand img{filter:drop-shadow(0 0 18px color-mix(in srgb,var(--c1) 55%,transparent)) drop-shadow(0 12px 14px rgba(0,0,0,.65))}
+:root:root .brand b{text-shadow:var(--x3)}
+:root:root .mq{--mb:#030603;background:#030603;color:#fff;border:1px solid var(--nb);box-shadow:0 0 24px -8px var(--ng),inset 0 0 0 1px rgba(255,255,255,.03);font-family:var(--f3);font-weight:500;font-size:13px;letter-spacing:.16em;margin:8px 0 16px}
+:root:root .mq span::after{content:"\25C6";color:var(--c1);text-shadow:0 0 10px var(--c1);margin:0 20px}
+/* ---------- Titres de section ---------- */
+:root:root .w:not(.aw)>h2{display:flex;align-items:center;width:auto;margin:30px 0 14px;padding:0;background:none;font-family:var(--f3);font-weight:600;font-size:26px;line-height:1.1;letter-spacing:.08em;text-transform:uppercase;color:#fff;text-shadow:var(--x3)}
+:root:root .w:not(.aw)>h2::before{content:"";flex:none;width:5px;height:1em;margin-right:12px;border-radius:3px;background:var(--c1);box-shadow:0 0 14px var(--c1)}
+:root:root .sh h2,:root:root .agc h2,:root:root #sp h1{font-family:var(--f3);font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#fff;text-shadow:var(--x3)}
+:root:root .sh h2{font-size:26px}
+:root:root .sh h3{font-family:var(--f3);font-weight:500;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--c1);margin:22px 0 8px;text-shadow:0 0 12px color-mix(in srgb,var(--c1) 40%,transparent)}
+/* ---------- Formulaires ---------- */
+:root:root input,:root:root select,:root:root textarea{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 14px}
+:root:root input:not([type=checkbox]):not([type=radio]):not([type=color]):not([type=file]),:root:root select,:root:root textarea{box-shadow:none}
+:root:root input::placeholder,:root:root textarea::placeholder{color:rgba(255,255,255,.42)}
+:root:root input:focus,:root:root select:focus,:root:root textarea:focus{outline:none;border-color:var(--c1);box-shadow:0 0 0 3px color-mix(in srgb,var(--c1) 28%,transparent)}
+:root:root input[type=checkbox],:root:root input[type=radio]{accent-color:var(--c1)}
+:root:root :focus-visible{outline:2px solid var(--c1)}
+:root:root label{color:#fff}
+/* ---------- Cartes (toutes les pages) ---------- */
+:root:root .cd,:root:root .tx,:root:root .fq,:root:root .lab,:root:root .oc,:root:root .lw,:root:root .inf>div,:root:root .inf>.ib,:root:root .g2 .cd,:root:root .pk span,:root:root .as>div,:root:root .hrs .t3,:root:root .hrs summary,:root:root .zg,:root:root .esp .sp,:root:root .zc,:root:root .zr:not(:empty),:root:root .pmo,:root:root .fzb,:root:root .frp,:root:root .pkb .cd,:root:root .ace,:root:root .ncta,:root:root .mgl,:root:root .igs{background:var(--nk);background-image:none;border:1px solid rgba(255,255,255,.11);border-radius:16px;box-shadow:0 12px 24px -16px rgba(0,0,0,.95);-webkit-backdrop-filter:none;backdrop-filter:none}
+:root:root .wn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.28);color:#fff;box-shadow:none}
+:root:root .lab{border-left:3px solid var(--c1)}
+:root:root .oc{border-left:3px solid var(--c1)}
+:root:root .ace{border:1px dashed rgba(255,255,255,.28)}
+@media(hover:hover){
+:root:root .g2 .cd:hover,:root:root .inf>.ib:hover,:root:root .tx:hover,:root:root .fq:hover,:root:root .oc:hover,:root:root .lc:hover,:root:root .pk span:hover,:root:root .lw:hover,:root:root .lab:hover,:root:root .as>div:hover,:root:root .zg:hover,:root:root .hrs .t3:hover,:root:root .esp .sp:hover,:root:root .zc:hover,:root:root .nc:hover{transform:translateY(-3px);border-color:var(--c1);box-shadow:var(--rl-sh-h)}}
+/* ---------- Horaires ---------- */
+:root:root .inf{gap:12px;margin:12px 0 10px}
+:root:root .inf>.ib{padding:14px 14px 14px 20px}
+:root:root .inf>.ib::before{width:4px;background:var(--c1);box-shadow:0 0 14px var(--c1)}
+:root:root .ih i{background:rgba(255,255,255,.06);border:1px solid var(--nb);box-shadow:0 0 14px -6px var(--ng)}
+:root:root .ih b{color:var(--c1);font-size:13px;letter-spacing:.16em;text-shadow:0 0 12px color-mix(in srgb,var(--c1) 40%,transparent)}
+:root:root .tm{color:#fff;font-size:clamp(17px,5vw,22px);font-weight:600;letter-spacing:.02em;margin:4px 0 10px;white-space:nowrap}
+:root:root .inf .st{white-space:nowrap;font-size:11px;letter-spacing:.04em;padding:5px 10px;background:rgba(255,59,48,.12);box-shadow:inset 0 0 0 1px rgba(255,90,80,.62);color:#ff8f87;padding:5px 12px}
+:root:root .inf .st.on{background:color-mix(in srgb,var(--c1) 14%,transparent);box-shadow:inset 0 0 0 1px var(--c1),0 0 14px -4px var(--ng);color:var(--c1)}
+:root:root .st.on{color:var(--c1)}
+:root:root .st.on::before{background:var(--c1)}
+:root:root .hrs summary{color:#fff;border-radius:999px;font-family:var(--f3);letter-spacing:.1em;text-transform:uppercase;font-size:14px;border-color:var(--nb)}
+:root:root .hrs .t3{border-radius:12px}
+:root:root .hrs .today{background:color-mix(in srgb,var(--c1) 12%,var(--nk));border-color:var(--c1);box-shadow:0 0 18px -8px var(--ng)}
+/* ---------- Pastilles / chips ---------- */
+:root:root .rw{scrollbar-width:none;padding:6px 2px 12px}:root:root .rw::-webkit-scrollbar{display:none}
+:root:root .ch{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.22);box-shadow:none;font-size:13px;letter-spacing:.1em;padding:9px 16px}
+:root:root .ch.on{background:var(--c1);color:var(--nt);border-color:var(--c1);box-shadow:0 0 20px -4px var(--ng)}
+:root:root .ch:active{box-shadow:none}
+:root:root .chp{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);box-shadow:none}
+:root:root .pch span,:root:root .pch button{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2)}
+:root:root .csp{border-color:var(--c1)}
+/* pastilles pleines néon (prix, zones, badges) */
+:root:root .pmb,:root:root .fzp,:root:root .fzb .fzk,:root:root .zc .zf,:root:root .chp.hot,:root:root .nbg,:root:root .ncb .bn,:root:root .nlk,:root:root .av,:root:root .nb,:root:root .ign,:root:root .cat{background:var(--c1);color:var(--nt);text-shadow:none;box-shadow:0 0 18px -6px var(--ng)}
+:root:root .cat{background:transparent;border:1px solid var(--c1);color:var(--c1);box-shadow:none}
+:root:root .nbg.nm{background:var(--c1)}
+:root:root .nbg.nk{background:#2a2e2a;color:#fff}
+:root:root .pmb small,:root:root .fzb .fzk small{color:var(--nt)}
+:root:root .zg>b{color:var(--c1)}
+:root:root .st2{color:var(--c1)}
+:root:root .as b{color:var(--c1)}
+:root:root .t3 em,:root:root .tm small{color:var(--c1)}
+/* ---------- Produits ---------- */
+:root:root .g{gap:12px;margin-top:12px}
+:root:root .pc{background:linear-gradient(180deg,rgba(15,23,15,.96),rgba(5,8,5,.99));border:1px solid rgba(255,255,255,.1);border-radius:18px;box-shadow:0 14px 26px -18px rgba(0,0,0,.95)}
+:root:root .pc::after{box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+:root:root .pc .ph{aspect-ratio:1/1;box-shadow:none;border-bottom:1px solid rgba(255,255,255,.06)}
+:root:root .pc .ph::after{background:linear-gradient(180deg,rgba(0,0,0,.18),transparent 30%,transparent 58%,rgba(5,8,5,.92))}
+:root:root .pc .pi{padding:12px 13px 15px}
+:root:root .pc .pi>b{color:#fff;font-family:var(--f3);font-weight:500;font-size:16px;letter-spacing:.07em;text-transform:uppercase}
+:root:root .pc .pi .mu{background:var(--c1);color:var(--nt);text-shadow:none;font-weight:700;font-size:15px;letter-spacing:.04em;padding:5px 13px;box-shadow:0 0 16px -4px var(--ng)}
+:root:root .pc.fxb,:root:root .pc.fxe{border-color:var(--c1)}
+:root:root .pc:active,:root:root .pc:hover:active{transform:scale(.97);box-shadow:0 0 0 1px var(--c1)}
+@media(hover:hover){:root:root .pc:hover{transform:translateY(-5px);border-color:var(--c1);box-shadow:0 0 0 1px var(--c1),0 0 30px -8px var(--ng),0 22px 30px -18px rgba(0,0,0,.95)}}
+:root:root .pbd .csb{background:rgba(0,0,0,.78);color:#fff;border-color:rgba(255,255,255,.35);letter-spacing:.06em;text-transform:uppercase}
+:root:root .pbd .csb.bsl{background:var(--c1);color:var(--nt);border-color:transparent;--g:var(--c1)}
+:root:root .pbd .csb.nwb{background:rgba(0,0,0,.82);color:var(--c1);border-color:var(--c1);--g:var(--c1)}
+:root:root .pbd .csb.exb{background:#000;color:#fff;border-color:#fff}
+/* ---------- Infos & avantages ---------- */
+:root:root .g2 .cd{padding:16px 12px;border-top:2px solid var(--c1)}
+:root:root .em2{filter:drop-shadow(0 0 10px var(--ng))}
+:root:root .g2 .cd b,:root:root .esp .sp b{color:#fff;font-family:var(--f3);font-weight:500;font-size:16px;letter-spacing:.1em;text-transform:uppercase}
+:root:root .tx p,:root:root .fq p,:root:root .g2 .mu,:root:root .sp .mu{font-family:var(--f2);font-style:normal;color:rgba(255,255,255,.74);line-height:1.55}
+:root:root .g2 .mu{font-size:13.5px}
+:root:root .tx h2{font-family:var(--f3);text-transform:uppercase;letter-spacing:.08em}
+:root:root .fq summary{color:#fff}
+:root:root .esp .nb{background:none;color:var(--c1);box-shadow:none}
+:root:root .lkb{gap:10px}
+:root:root .ft{color:var(--c1);font-family:var(--f3);letter-spacing:.14em;font-size:13px;text-shadow:0 0 14px var(--ng);margin:26px 0 8px}
+/* ---------- Boutons flottants ---------- */
+:root:root .fab{border-radius:16px;font-family:var(--f3);font-size:17px;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 0 0 1px color-mix(in srgb,var(--c1) 55%,#fff),0 0 34px -4px var(--ng),0 16px 26px -14px rgba(0,0,0,.95)}
+:root:root .ts{background:#0b110b;color:#fff;border:1px solid var(--c1);box-shadow:0 0 26px -6px var(--ng)}
+:root:root .mpp,:root:root #bh{background:var(--nk2);background-image:none;border:1px solid var(--nb);box-shadow:0 0 26px -10px var(--ng),0 12px 30px rgba(0,0,0,.6)}
+/* ---------- Fenêtres (produit, panier, compte, assistant) ---------- */
+:root:root .ov{background:rgba(0,0,0,.74)}
+:root:root .sh{background:linear-gradient(180deg,#0c140c,#050805 38%);color:#fff;border-top:1px solid var(--c1);border-radius:24px 24px 0 0;box-shadow:0 -10px 50px -12px var(--ng),0 -2px 0 rgba(0,0,0,.6)}
+:root:root .sh::before{width:48px;background:color-mix(in srgb,var(--c1) 60%,transparent)}
+:root:root .sh .mu,:root:root .sh p{color:rgba(255,255,255,.76)}
+:root:root .sh .pp{background:var(--c1);color:var(--nt);text-shadow:none;border-radius:12px;box-shadow:0 0 22px -6px var(--ng)}
+:root:root .sh .pd{font-family:var(--f2);font-style:normal;font-size:15.5px;line-height:1.65;color:rgba(255,255,255,.86);background:rgba(255,255,255,.04);border:0;border-left:3px solid var(--c1);box-shadow:none;border-radius:12px}
+:root:root .sh .pd:empty{display:none}
+:root:root .sh label.ck{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);box-shadow:none;border-radius:12px;color:#fff}
+:root:root .sl>*{box-shadow:none;border:1px solid rgba(255,255,255,.08);background:#000}
+:root:root .ef span{background:var(--c1);color:var(--nt)}
+:root:root .pp,:root:root .num{color:var(--c1)}
+:root:root .pfx{border-top-color:rgba(255,255,255,.14)}
+/* ---------- Panier ---------- */
+:root:root .ci{background:var(--nk);border:1px solid rgba(255,255,255,.11);border-radius:16px}
+:root:root .cit{background-color:rgba(255,255,255,.08)}
+:root:root .cir>b{color:var(--c1)}
+:root:root .cs{background:var(--nk);border:1px solid var(--nb);box-shadow:0 0 22px -12px var(--ng)}
+:root:root .cs .tt.dc{color:var(--c1)}
+:root:root .tt.big{color:#fff;border-top-color:rgba(255,255,255,.18)}
+:root:root .tt.big b:last-child{color:var(--c1);text-shadow:0 0 14px var(--ng)}
+:root:root .cok{border-radius:16px;font-family:var(--f3);font-size:18px;letter-spacing:.08em;text-transform:uppercase}
+:root:root .cpay{color:var(--mu)}
+:root:root .wab{font-family:var(--f3);letter-spacing:.08em;text-transform:uppercase}
+/* ---------- Espace client, commandes, fidélité ---------- */
+:root:root .lc,:root:root .lc2{background:linear-gradient(135deg,#071407,#0c2a0c 55%,#020502);color:#fff;border:1px solid var(--nb);box-shadow:0 0 36px -14px var(--ng),0 22px 32px -22px rgba(0,0,0,.95)}
+:root:root .lc::after{background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.08) 50%,transparent 65%)}
+:root:root .ls i.on,:root:root .lr span.on,:root:root .ls i.gf.on{background:var(--c1);color:var(--nt);box-shadow:0 0 16px -4px var(--ng)}
+:root:root .bar2,:root:root .frp .frb{background:rgba(255,255,255,.1);box-shadow:none}
+:root:root .bar2 i,:root:root .frp .frb i{background:var(--c1);box-shadow:0 0 14px var(--c1)}
+:root:root .lxb{background:rgba(255,255,255,.12)}:root:root .lxb i{background:var(--c1)}
+:root:root .lxw::before{background:conic-gradient(from var(--a),var(--c1),#fff,var(--c1),#052505,var(--c1))}
+:root:root .av{font-family:var(--f3)}
+:root:root .trk span.on i,:root:root .bdg.ok{background:var(--c1);color:var(--nt)}
+:root:root .bdg.ok{background:color-mix(in srgb,var(--c1) 14%,transparent);color:var(--c1);box-shadow:inset 0 0 0 1px var(--c1)}
+:root:root .idst span.done i{background:var(--c1);border-color:var(--c1);color:var(--nt)}
+:root:root .idst span.done::before,:root:root .idst span.cur::before{background:var(--c1)}
+:root:root .idst span.cur i{border-color:var(--c1);color:#fff;box-shadow:0 0 0 4px color-mix(in srgb,var(--c1) 26%,transparent)}
+:root:root .idok{color:var(--c1)}
+/* ---------- Actualités ---------- */
+:root:root .nc{background:var(--nk);background-image:none;border:1px solid rgba(255,255,255,.12);box-shadow:0 14px 26px -18px rgba(0,0,0,.95)}
+:root:root .nc.nl{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--c1) 26%,transparent),transparent 70%)}
+:root:root .nct b{color:#fff}
+:root:root .nex,:root:root .nlt{color:rgba(255,255,255,.72)}
+:root:root .nch i{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18)}
+/* ---------- Messages & assistant ---------- */
+:root:root .bm{background:var(--nk2);color:#fff;border:1px solid rgba(255,255,255,.12);box-shadow:none}
+:root:root .bm.u{background:var(--c1);color:var(--nt);border-color:transparent}
+:root:root .mgb{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:#fff}
+:root:root .mgb.me{background:var(--c1);color:var(--nt)}
+:root:root .mgb.me .mgw{color:var(--nt)}
+:root:root .mgb.bot{background:color-mix(in srgb,var(--c1) 10%,#050805)}
+/* ---------- Promos ---------- */
+:root:root .pr{background:var(--nk);color:#fff;border:1px solid var(--nb);box-shadow:0 0 22px -10px var(--ng)}
+:root:root .pr::after{background:linear-gradient(100deg,transparent,rgba(255,255,255,.18),transparent)}
+:root:root .zc .zi b,:root:root .pmt{color:#fff}
+/* ---------- Écran d'accueil (splash) ---------- */
+:root:root #sp .b{background-color:var(--c1);color:var(--nt);font-family:var(--f3);font-size:19px;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 0 34px -4px var(--ng)}
+/* ---------- Administration ---------- */
+:root:root .aw .bar,:root:root .aw .sn{background:rgba(4,7,4,.94)}
+:root:root .aw .bar{border-bottom:1px solid var(--nb);box-shadow:none}
+
 </style></head><body><div id="app"></div><div id="m"></div>
 <script id="d" type="application/json">{"shop":{"name":"","tag":"","btn":"Commander","c1":"#00f900","c2":"#000000","logo":"media/4gfcqcsc9mu0.png","banner":"","open":true,"min":100,"wa":"","ph":"p1$cb4e338ac718bf0f4e048464db7e51fe$a5609ae47211ec6b37a89c74850b3216a606f92cee65b9c7a8750d830b6eca15","info":"","txtT":"","txt":"","hrs":{"sp":["12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00"],"dl":["12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00"]},"tiers":[{"km":5,"fee":5},{"km":10,"fee":10},{"km":20,"fee":30}],"bar":"Livraison Grenoble / Nancy / Les Vosges et tous leurs alentours - LIVRAISON RAPIDE ET SÉCURISÉ  - PRODUITS D'EXCEPTIONS TOUT L'ANNÉE ","foot":"GREENLAND LE NUMERO DU DEPARTEMENT 38,54 ET 88 \n","short":"MA BOUTIQUE","bg":"#ffffff","tx":"#000000","mu":"#28cd41","bgi":"media/w6okvhk1km23.jpg","ht":"#000000"},"prods":[{"id":"n4y7x0","n":"A","d":"","p":2,"c":"","pr":[],"im":["media/dx1k0rlr7c2g.jpg"],"v":"media/gkoufonc4vte.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":1,"nw":0,"rr":0,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}},{"id":"0xywzk","n":"B","d":"","p":3,"c":"","pr":[],"im":["media/b2th49vnew6h.jpg"],"v":"media/4jkb6un2znz3.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":0,"nw":0,"rr":1,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}},{"id":"5lkydo","n":"C","d":"","p":4,"c":"","pr":[],"im":["media/ivq2js8tri7e.jpg"],"v":"media/syi7e4vbz00d.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":0,"nw":1,"rr":0,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}},{"id":"6suv1b","n":"D","d":"","p":6,"c":"","pr":[],"im":["media/tycf1i6v43xk.jpg"],"v":"media/da6txeu884v3.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":0,"nw":0,"rr":1,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}},{"id":"31m52t","n":"E","d":"","p":8,"c":"","pr":[],"im":["media/avjwnx1fpac8.jpg"],"v":"media/7qeluoz0hc1e.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":1,"nw":0,"rr":0,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}}],"promos":[],"perks":[{"i":"","t":"","d":""}],"steps":[],"faq":[],"rev":[],"links":[{"l":"TELEGRAMME ","u":"https:/t.me/greenland38"},{"l":"TATO (POTATOS )","u":"https://tato.im/greenland38"}],"legal":{"age":0,"mentions":"","cgv":""},"codes":[],"loy":{"on":0,"rule":"1 point = 1 € dépensé, crédité automatiquement dès la livraison de votre commande.","n":5,"pct":10,"tiers":[{"pts":350,"pct":0,"eur":10,"t":"","g":""},{"pts":700,"pct":0,"eur":25,"t":"","g":""},{"pts":1000,"pct":0,"eur":40,"t":"","g":""},{"pts":1500,"pct":0,"eur":70,"t":"","g":""},{"pts":2000,"pct":0,"eur":100,"t":"","g":""}],"img":"","ppe":1,"rmin":60,"mg":50},"splash":{"on":1,"img":"media/xow4fbvr9wni.jpg","t":"","d":"","btn":"Découvrir 👉","fx":"zoom"},"v":1794876867502,"bot":{"on":1,"hi":"Bonjour 👋 Je suis l’assistant de la boutique. Posez-moi votre question !","qa":[],"mk":{"on":1,"msg":"","ids":[],"aud":"all","promo":1}},"mus":{"on":1,"d":1,"l":[{"id":"pxwxcz","n":"Imed zee - Horloger #4","fl":[{"t":"Imed zee - Horloger #4 (Visualizer)","u":"media/d0b4brmtfoeu.mp3"}]}],"auto":1},"sb":{"url":"https://sfvjlluqyuewmiytsmqn.supabase.co","key":"sb_publishable_vcaDKcDxviR4cz3skpSgSA_rZKxRDdZ"},"zones":[{"id":"g60dhu","n":"","fee":5,"min":"","on":1},{"id":"pwi3qm","n":"","fee":5,"min":"","on":1},{"id":"0xb10m","n":"","fee":5,"min":"","on":1},{"id":"j0ann7","n":"","fee":5,"min":"","on":1}],"zfree":{"0":100,"5":100},"cards":[],"idv":{"on":0,"req":0,"del":0,"t":"Vérification du compte","txt":""},"cinfo":{"t":"","txt":""},"ref":{"on":1,"n":5,"pct":10,"eur":0,"fpct":10,"feur":0},"hv":{"on":1,"src":"","loop":1,"list":[],"tl":[]},"refs":[],"zlab":{"0":"NANCY ET SES ALENTOURS ","5":"GRENOBLES ET SES ALENTOURS "},"news":[],"push":{"on":0,"vk":"","pk":1,"nw":1,"mg":1},"mig":3,"supm":1,"sup":[],"infc":{"age":{"i":"👥","t":"Espace Client","txt":"Retrouvez vos informations, vos commandes et votre programme de fidélité depuis votre espace client."},"ref":{"on":0},"pay":{"txt":"Nous acceptons que les paiements en cash. "}}}</script>
 <script id="js">/*OHZ*/
@@ -762,7 +961,7 @@ const hero=()=>`<div class=cta><button class=b data-a=go>${e(S.shop.btn||'COMMAN
 function pbdg(p){const B=[];if(p.bs&&!p.o)B.push('<span class="csb bsl">⭐ Best seller</span>');if(p.nw&&!p.o&&!p.cs)B.push('<span class="csb nwb">🆕 Nouveauté</span>');if(p.rr&&!p.o)B.push('<span class="csb exb">💎 Exclusivité</span>');if(p.cs)B.push('<span class="csb soo">🔜 Bientôt disponible</span>');else if(p.o)B.push('<span class="csb sld">⛔ Épuisé</span>');else if(p.sc)B.push('<span class="csb scb">📦 Sur commande</span>');else if(slim(p)&&+p.st>0&&+p.st<=3)B.push('<span class="csb low">🔥 Dernières pièces</span>');return B.length?'<div class=pbd>'+B.join('')+'</div>':''}
 const pcard=(p,i)=>`<div class="pc${p.o&&!p.cs?' out':''}${p.cs?' soon':''}${p.rr&&!p.o&&!p.cs?' fxe':p.bs&&!p.o&&!p.cs?' fxb':''}" style="--i:${Math.min(i,9)}" data-a=prod data-k="${p.id}"><div class=ph style="${p.im[0]?`background-image:url('${p.im[0]}')`:''}">${p.im[0]?'':emo(p.c)}${pbdg(p)}</div><div class=pi><b>${e(p.n)}</b><div class=mu>${p.pr&&p.pr.length?'dès '+eur(Math.min(...p.pr.map(v=>v.p))):eur(p.p)}${p.o&&!p.cs?' · <b>Épuisé</b>':p.sc&&!p.cs?' · 24 à 48 h max':''}</div></div></div>`;
 const hu=u=>/^https?:\/\//i.test(u)?u:'https://'+String(u).replace(/^\w+:\/*/,'');
-const pk=()=>S.perks.length?`<div class="g2 pkb">${S.perks.map((p,i)=>`<div class=cd style="--i:${i}"><span class=em2>${e(p.i)}</span><b>${e(p.t)}</b><span class=mu>${e(p.d)}</span></div>`).join('')}</div>`:'';
+const pk=()=>S.perks.some(p=>p.i||p.t||p.d)?`<div class="g2 pkb">${S.perks.filter(p=>p.i||p.t||p.d).map((p,i)=>`<div class=cd style="--i:${i}"><span class=em2>${e(p.i)}</span><b>${e(p.t)}</b><span class=mu>${e(p.d)}</span></div>`).join('')}</div>`:'';
 const labH=p=>{const l=p.lab||{};if(!l.thc&&!l.n&&!l.u)return'';return `<div class=lab><b>🧪 Analyse laboratoire</b>${l.thc?`<div>THC : <b>${e(l.thc)}</b></div>`:''}${l.n?`<div class=mu>${e(l.n)}</div>`:''}${l.u?`<button class="b b2 bs" style="margin-top:8px" data-a=cert data-k="${p.id}">Voir le certificat</button>`:''}</div>`};
 const lgl=()=>{const g=S.legal,L=[['mentions','Mentions légales'],['cgv','CGV']].filter(([k])=>String(g[k]||'').trim());return L.length?`<p class=ft style="white-space:normal">${L.map(([k,l])=>`<button class=lk data-a=leg data-k=${k}>${l}</button>`).join(' · ')}</p>`:''};
 const bl=()=>{const s=S.shop,k=S.links.filter(l=>l.u&&l.l),h=(t,b)=>b?`<h2>${t}</h2>${b}`:'';return h('Avis clients',S.rev.map(r=>`<div class=cd><b>${e(r.n)} <span class=st2>${'★'.repeat(Math.max(0,Math.min(5,+r.s||5)))}</span></b>${e(r.t)}</div>`).join(''))+h('Questions fréquentes',faqH())+(k.length?`<div class=lkb>${k.map(l=>`<a class="b b2 bs" target=_blank rel=noopener href="${e(hu(l.u))}">${e(l.l)}</a>`).join('')}</div>`:'')+(String(s.foot||'').trim()?`<p class=ft>${e(s.foot)}</p>`:'')+lgl()};
