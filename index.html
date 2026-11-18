@@ -942,9 +942,56 @@ html[data-favf="1"] .pc:not([data-fav]){display:none}
 :root:root .aw{padding-left:22px;padding-right:22px;border-radius:0 0 22px 22px}
 }
 @media (min-width:1200px){:root:root .aw{max-width:min(1240px,96vw)}}
+/* ===== FULL DESIGN + FULL ANIMATION (coupés par l'interrupteur d'effets et « réduire les animations ») ===== */
+html{scrollbar-color:var(--c1,#00f900) #050805}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:#050805}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--c1,#00f900),#0a7d0a);border-radius:10px;border:2px solid #050805}
+::selection{background:var(--c1,#00f900);color:#000}
+#spb{position:fixed;top:0;left:0;height:3px;width:0;z-index:99999;pointer-events:none;background:linear-gradient(90deg,var(--c1,#00f900),#fff);box-shadow:0 0 12px var(--c1,#00f900)}
+#cgl{position:fixed;left:0;top:0;width:460px;height:460px;margin:-230px 0 0 -230px;border-radius:50%;pointer-events:none;z-index:0;opacity:0;background:radial-gradient(circle,color-mix(in srgb,var(--c1,#00f900) 17%,transparent),transparent 65%);mix-blend-mode:screen;transition:opacity .4s}
+html[data-fx=off] #spb,html[data-fx=off] #cgl{display:none}
+@media (prefers-reduced-motion:no-preference){
+html[data-fx=on] body::before{content:'';position:fixed;inset:-20%;z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 20% 25%,color-mix(in srgb,var(--c1,#00f900) 26%,transparent),transparent 70%),radial-gradient(35% 30% at 80% 72%,color-mix(in srgb,var(--c1,#00f900) 17%,transparent),transparent 70%),radial-gradient(30% 30% at 72% 14%,rgba(0,200,255,.11),transparent 70%);filter:blur(24px);animation:xaur 24s ease-in-out infinite alternate}
+@keyframes xaur{to{transform:translate3d(5%,-4%,0) rotate(7deg) scale(1.1)}}
+html[data-fx=on] #app h2::after{content:'';display:block;height:3px;width:56px;margin-top:9px;border-radius:3px;background:var(--c1,#00f900);box-shadow:0 0 14px var(--c1,#00f900);animation:xul 3.4s ease-in-out infinite}
+@keyframes xul{50%{width:130px}}
+html[data-fx=on] .b{transition:transform .14s ease,box-shadow .25s ease,filter .25s ease}
+html[data-fx=on] .b:active{transform:scale(.95)}
+html[data-fx=on] :is(.cd,.ib,.zc){background-image:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,0) 42%);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+html[data-fx=on] :is(.ib,.cd){transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+html[data-fx=on] .t3.today{animation:xbd 2.4s ease-in-out infinite}
+@keyframes xbd{50%{border-color:var(--c1,#00f900);box-shadow:0 0 22px color-mix(in srgb,var(--c1,#00f900) 40%,transparent)}}
+html[data-fx=on] .zc[open]>:not(summary){animation:xdn .38s ease both}
+@keyframes xdn{from{opacity:0;transform:translateY(-10px)}}
+html[data-fx=on] .ch{transition:transform .2s ease,box-shadow .25s ease}
+html[data-fx=on] .ch.on{animation:xchg 2.8s ease-in-out infinite}
+@keyframes xchg{50%{box-shadow:0 0 24px color-mix(in srgb,var(--c1,#00f900) 65%,transparent)}}
+html[data-fx=on] .brand img{animation:xflt 5.5s ease-in-out infinite;filter:drop-shadow(0 0 16px color-mix(in srgb,var(--c1,#00f900) 55%,transparent))}
+@keyframes xflt{50%{transform:translateY(-7px)}}
+html[data-fx=on] #m.op .sh{animation:xsh .42s cubic-bezier(.2,.9,.3,1.15)}
+html[data-fx=on] #m.op .ov{animation:xfd .28s ease}
+@keyframes xsh{from{transform:translateY(44px) scale(.96);opacity:0}}
+@keyframes xfd{from{opacity:0}}
+html[data-fx=on] .ts{animation:xts .45s cubic-bezier(.2,1.4,.4,1)}
+@keyframes xts{from{transform:translateY(24px) scale(.9);opacity:0}}
+html[data-fx=on] .xo{opacity:0;transform:translateY(22px)}
+html[data-fx=on] .xo.xin{opacity:1;transform:none;transition:opacity .65s ease,transform .65s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--j,0)*70ms)}
+@media (hover:hover) and (pointer:fine){
+:root:root[data-fx=on] .pc:not(.pre),:root:root[data-fx=on] .pc:not(.pre):hover{transform:perspective(760px) translateY(var(--ty,0px)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--sc,1));transition:transform .18s ease-out,box-shadow .3s ease;will-change:transform}
+:root:root[data-fx=on] .pc:not(.pre):hover{--ty:-6px;box-shadow:0 22px 44px rgba(0,0,0,.55),0 0 30px color-mix(in srgb,var(--c1,#00f900) 48%,transparent)}
+html[data-fx=on] .pc .pi{transition:transform .55s ease}html[data-fx=on] .pc:hover .pi{transform:scale(1.07)}
+html[data-fx=on] :is(.ib,.cd):hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.45),0 0 22px color-mix(in srgb,var(--c1,#00f900) 32%,transparent)}
+html[data-fx=on] .ch:hover{transform:translateY(-2px)}
+}}
+/* Neige + montagnes */
+#snw{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:5;pointer-events:none}
+html[data-fx=off] #snw{display:none}
+.w:not(.aw)::after{content:'';display:block;height:clamp(90px,16vw,170px);margin:28px -16px -96px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%2300f900' stop-opacity='.32'/%3E%3Cstop offset='1' stop-color='%23001a00' stop-opacity='.92'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 160V110L120 60l70 35L300 25l110 75 110-45 120 57 120-74 120 60 110-46 110 52 100-34v90z' fill='url(%23g)'/%3E%3Cpath d='M300 25l-38 33 23-6 15 14 18-16 24 10zM760 38l-32 28 20-6 14 14 16-16 22 8zM120 60l-24 20 18-4 12 10 14-12 12 6zM520 55l-24 23 16-5 12 11 14-12 14 6zM990 52l-24 22 16-4 12 10 14-12 14 6z' fill='%23fff' fill-opacity='.85'/%3E%3C/svg%3E") center bottom/100% 100% no-repeat;opacity:.55;pointer-events:none}
 </style></head><body><div id="app"></div><div id="m"></div>
 <script id="d" type="application/json">{"shop":{"name":"","tag":"","btn":"Commander","c1":"#00f900","c2":"#000000","logo":"media/4gfcqcsc9mu0.png","banner":"","open":true,"min":100,"wa":"","ph":"p1$cb4e338ac718bf0f4e048464db7e51fe$a5609ae47211ec6b37a89c74850b3216a606f92cee65b9c7a8750d830b6eca15","info":"","txtT":"","txt":"","hrs":{"sp":["12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00"],"dl":["12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00"]},"tiers":[{"km":5,"fee":5},{"km":10,"fee":10},{"km":20,"fee":30}],"bar":"Livraison Grenoble / Nancy / Les Vosges et tous leurs alentours - LIVRAISON RAPIDE ET SÉCURISÉ  - PRODUITS D'EXCEPTIONS TOUT L'ANNÉE ","foot":"GREENLAND LE NUMERO DU DEPARTEMENT 38,54 ET 88 \n","short":"MA BOUTIQUE","bg":"#ffffff","tx":"#000000","mu":"#28cd41","bgi":"media/w6okvhk1km23.jpg","ht":"#000000"},"prods":[{"id":"n4y7x0","n":"A","d":"","p":2,"c":"","pr":[],"im":["media/dx1k0rlr7c2g.jpg"],"v":"media/gkoufonc4vte.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":1,"nw":0,"rr":0,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}},{"id":"0xywzk","n":"B","d":"","p":3,"c":"","pr":[],"im":["media/b2th49vnew6h.jpg"],"v":"media/4jkb6un2znz3.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":0,"nw":0,"rr":1,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}},{"id":"5lkydo","n":"C","d":"","p":4,"c":"","pr":[],"im":["media/ivq2js8tri7e.jpg"],"v":"media/syi7e4vbz00d.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":0,"nw":1,"rr":0,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}},{"id":"6suv1b","n":"D","d":"","p":6,"c":"","pr":[],"im":["media/tycf1i6v43xk.jpg"],"v":"media/da6txeu884v3.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":0,"nw":0,"rr":1,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}},{"id":"31m52t","n":"E","d":"","p":8,"c":"","pr":[],"im":["media/avjwnx1fpac8.jpg"],"v":"media/7qeluoz0hc1e.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":1,"nw":0,"rr":0,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}}],"promos":[],"perks":[{"i":"","t":"","d":""}],"steps":[],"faq":[],"rev":[],"links":[{"l":"TELEGRAMME ","u":"https:/t.me/greenland38"},{"l":"TATO (POTATOS )","u":"https://tato.im/greenland38"}],"legal":{"age":0,"mentions":"","cgv":""},"codes":[],"loy":{"on":0,"rule":"1 point = 1 € dépensé, crédité automatiquement dès la livraison de votre commande.","n":5,"pct":10,"tiers":[{"pts":350,"pct":0,"eur":10,"t":"","g":""},{"pts":700,"pct":0,"eur":25,"t":"","g":""},{"pts":1000,"pct":0,"eur":40,"t":"","g":""},{"pts":1500,"pct":0,"eur":70,"t":"","g":""},{"pts":2000,"pct":0,"eur":100,"t":"","g":""}],"img":"","ppe":1,"rmin":60,"mg":50},"splash":{"on":1,"img":"media/xow4fbvr9wni.jpg","t":"","d":"","btn":"Découvrir 👉","fx":"zoom"},"v":1794876867502,"bot":{"on":1,"hi":"Bonjour 👋 Je suis l’assistant de la boutique. Posez-moi votre question !","qa":[],"mk":{"on":1,"msg":"","ids":[],"aud":"all","promo":1}},"mus":{"on":1,"d":1,"l":[{"id":"pxwxcz","n":"Imed zee - Horloger #4","fl":[{"t":"Imed zee - Horloger #4 (Visualizer)","u":"media/d0b4brmtfoeu.mp3"}]}],"auto":1},"sb":{"url":"https://sfvjlluqyuewmiytsmqn.supabase.co","key":"sb_publishable_vcaDKcDxviR4cz3skpSgSA_rZKxRDdZ"},"zones":[{"id":"g60dhu","n":"","fee":5,"min":"","on":1},{"id":"pwi3qm","n":"","fee":5,"min":"","on":1},{"id":"0xb10m","n":"","fee":5,"min":"","on":1},{"id":"j0ann7","n":"","fee":5,"min":"","on":1}],"zfree":{"0":100,"5":100},"cards":[],"idv":{"on":0,"req":0,"del":0,"t":"Vérification du compte","txt":""},"cinfo":{"t":"","txt":""},"ref":{"on":1,"n":5,"pct":10,"eur":0,"fpct":10,"feur":0},"hv":{"on":1,"src":"","loop":1,"list":[],"tl":[]},"refs":[],"zlab":{"0":"NANCY ET SES ALENTOURS ","5":"GRENOBLES ET SES ALENTOURS "},"news":[],"push":{"on":0,"vk":"","pk":1,"nw":1,"mg":1},"mig":3,"supm":1,"sup":[],"infc":{"age":{"i":"👥","t":"Espace Client","txt":"Retrouvez vos informations, vos commandes et votre programme de fidélité depuis votre espace client."},"ref":{"on":0},"pay":{"txt":"Nous acceptons que les paiements en cash. "}}}</script>
 <script id="js">
+function SNV(){return S.shop.snow===undefined?1:+S.shop.snow}
+
 function zkey(z){return z&&z.zk?String(z.zk):String(+(z&&z.fee))}
 
 function pcard(p,i){const s=pcard0(p,i);let f=false;try{f=JSON.parse(localStorage.getItem('fav3')||'[]').includes(String(p.id))}catch(x){}const k=s.indexOf('>');return s.slice(0,k)+(f?' data-fav=1':'')+'>'+`<button type=button class="hrt${f?' on':''}" data-a=fav data-k="${e(p.id)}" aria-label="Favori" aria-pressed="${f}">${f?'❤️':'🤍'}</button>`+s.slice(k+1)}
@@ -1461,7 +1508,7 @@ const fxw=s=>String(s||'').split(/\s+/).filter(Boolean).map((w,i)=>`<span class=
 const pp=s=>{const x=typeof s=='string'?$(s):s;if(x){x.classList.remove('np');void x.offsetWidth;x.classList.add('np')}};
 const bump=()=>document.querySelectorAll('.fab,.bar [data-a=cart]').forEach(b=>{b.classList.remove('bp');void b.offsetWidth;b.classList.add('bp');setTimeout(()=>b.classList.remove('bp'),600)});
 const confetti=()=>{const c=document.createElement('div');c.className='cfx';const cs=[S.shop.c1,S.shop.c2,'#ffffff','#FFD166','#1E9E57'];for(let i=0;i<36;i++){const a=Math.random()*Math.PI*2,d=80+Math.random()*180;c.insertAdjacentHTML('beforeend',`<i style="background:${cs[i%5]};--dx:${Math.cos(a)*d}px;--dy:${Math.sin(a)*d+160+Math.random()*120}px;--r:${Math.random()*720-360}deg;animation-delay:${Math.random()*.15}s"></i>`)}document.body.append(c);setTimeout(()=>c.remove(),2200)};
-const lk0=TV.look;TV.look=()=>lk0()+`<h3>Titres en 3D</h3><div class=rt style="border:0"><span style="flex:1">Écriture 3D des titres : <b>${S.shop.t3===0?'désactivée':'activée'}</b></span><button class=b data-a=t3tog>${S.shop.t3===0?'Activer':'Désactiver'}</button></div><p class=mu>S’applique au nom de la boutique et à tous les titres ; la teinte suit votre couleur principale. Pensez à publier.</p><h3>Animations</h3><div class=rt style="border:0"><span style="flex:1">Effets et animations : <b>${S.shop.fx===0?'désactivés':'activés'}</b></span><button class=b data-a=fxtog>${S.shop.fx===0?'Activer':'Désactiver'}</button></div><p class=mu>Ils se coupent aussi tout seuls chez les clients qui ont réglé « réduire les animations » sur leur téléphone. Pensez à publier.</p>`;
+const lk0=TV.look;TV.look=()=>lk0()+`<h3>Titres en 3D</h3><div class=rt style="border:0"><span style="flex:1">Écriture 3D des titres : <b>${S.shop.t3===0?'désactivée':'activée'}</b></span><button class=b data-a=t3tog>${S.shop.t3===0?'Activer':'Désactiver'}</button></div><p class=mu>S’applique au nom de la boutique et à tous les titres ; la teinte suit votre couleur principale. Pensez à publier.</p><h3>Animations</h3><div class=rt style="border:0"><span style="flex:1">Effets et animations : <b>${S.shop.fx===0?'désactivés':'activés'}</b></span><button class=b data-a=fxtog>${S.shop.fx===0?'Activer':'Désactiver'}</button></div><p class=mu>Ils se coupent aussi tout seuls chez les clients qui ont réglé « réduire les animations » sur leur téléphone. Pensez à publier.</p><h3>Neige ❄️</h3><div class=rt style=\"border:0\"><span style=\"flex:1\">Neige qui tombe : <b>${['Aucune','Légère','Forte'][SNV()]}</b></span><button class=b data-a=sntog>Changer</button></div><p class=mu>Aucune, légère ou forte. Elle ne tombe pas dans l’espace admin et s’arrête avec l’interrupteur d’effets. Pensez à publier.</p>`;
 const add0=A.add,bmix0=A.bmix,ok0=A.ok,tab1=A.tab;
 Object.assign(A,{t3tog:()=>{S.shop.t3=S.shop.t3===0?1:0;render()},fxtog:()=>{S.shop.fx=S.shop.fx===0?1:0;render()},add:()=>{add0();bump()},bmix:el=>{bmix0(el);bump()},ok:()=>{ok0();if($('#m .num'))confetti()},tab:el=>{an('at');tab1(el)}});
 const SP=()=>({on:0,img:'',t:'',d:'',btn:'ENTRER',fx:'zoom',...S.splash});
@@ -2540,4 +2587,30 @@ favf:()=>{const d=document.documentElement.dataset;if(d.favf=='1')delete d.favf;
 reord:()=>{const L=rd(LK);let ok=0,sk=0;L.forEach(l=>{const p=S.prods.find(x=>x.id==String(l.key).split('|')[0]);if(!p||p.cs||savl(p)<1){sk++;return}const q=Math.min(+l.q||1,savl(p)),simple=!(l.x&&l.x.length)&&l.n==p.n,pr=simple&&+p.p>0?+p.p:+l.p,z=cart.find(c=>c.key==l.key);if(z)z.q+=q;else cart.push({key:l.key,n:l.n,p:pr,x:l.x||[],q});ok++});render();modal(cartH());toast(ok?'Dernière commande remise dans le panier'+(sk?' ('+sk+' produit'+(sk>1?'s':'')+' indisponible'+(sk>1?'s':'')+')':'')+'.':'Ces produits ne sont plus disponibles.')}});
 window.omake=no=>{const o=omake0(no);if(cart.length)wr(LK,cart.map(l=>({key:l.key,n:l.n,p:l.p,x:l.x,q:l.q})));return o};
 const p0=TV.prod;TV.prod=function(){const low=S.prods.filter(p=>slim(p)&&+p.st<=3).sort((a,b)=>+a.st-+b.st);return(low.length?`<div class=fdb role=status>⚠️ <b>Stock bas</b> : ${low.map(p=>e(p.n)+' ('+(+p.st>0?p.st+' restant'+(+p.st>1?'s':''):'épuisé')+')').join(' · ')}</div>`:'')+p0.apply(this,arguments)}}
+
+/* Full animation : barre de progression, lueur qui suit la souris, inclinaison des cartes, apparition des sections */
+{const D=document.documentElement,fx=()=>D.dataset.fx!=='off'&&!matchMedia('(prefers-reduced-motion:reduce)').matches,mk=(id)=>{const x=document.createElement('i');x.id=id;document.body.appendChild(x);return x};
+const bar=mk('spb');let tk=0;addEventListener('scroll',()=>{if(tk)return;tk=requestAnimationFrame(()=>{tk=0;bar.style.width=Math.min(100,scrollY/Math.max(1,D.scrollHeight-innerHeight)*100)+'%'})},{passive:true});
+if(matchMedia('(hover:hover) and (pointer:fine)').matches){const g=mk('cgl');let gx=0,gy=0,gr=0,cur=null;
+document.addEventListener('pointermove',ev=>{if(!fx())return;gx=ev.clientX;gy=ev.clientY;g.style.opacity=1;if(!gr)gr=requestAnimationFrame(()=>{gr=0;g.style.transform=`translate(${gx}px,${gy}px)`});
+const c=ev.target.closest&&ev.target.closest('.pc');if(c!==cur){if(cur)['--rx','--ry','--sc'].forEach(k=>cur.style.removeProperty(k));cur=c}
+if(c){const r=c.getBoundingClientRect(),x=(ev.clientX-r.left)/r.width-.5,y=(ev.clientY-r.top)/r.height-.5;c.style.setProperty('--rx',(-y*9).toFixed(2)+'deg');c.style.setProperty('--ry',(x*11).toFixed(2)+'deg');c.style.setProperty('--sc','1.025')}},{passive:true});
+document.addEventListener('pointerleave',()=>{g.style.opacity=0})}
+if('IntersectionObserver'in window){let k=0;const SEL='#app :is(h2,.ib,.zc,.cd,.inf,.lkb,.pmo)',done=c=>{c.classList.add('xin');setTimeout(()=>c.classList.remove('xo','xin'),1100)},io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){io.unobserve(en.target);done(en.target)}}),{threshold:.06}),scan=()=>{if(!fx())return;document.querySelectorAll(SEL+':not(.xdn)').forEach(c=>{c.classList.add('xdn');if(c.getBoundingClientRect().top>innerHeight*.98){c.style.setProperty('--j',k++%5);c.classList.add('xo');io.observe(c);setTimeout(()=>done(c),4500)}})};
+const ap=document.getElementById('app');if(ap)new MutationObserver(()=>{k=0;scan()}).observe(ap,{childList:true,subtree:true});scan()}}
+
+/* Neige ❄️ : canvas léger (flocons à 3 profondeurs, dérive au défilement). Réglage admin : aucune / légère / forte. */
+{const D=document.documentElement,cv=document.createElement('canvas');cv.id='snw';cv.setAttribute('aria-hidden','true');document.body.appendChild(cv);const cx=cv.getContext('2d');let W=0,H=0,R=1,F=[],run=0,wind=0,ly=scrollY,t0=0;
+const lvl=()=>D.dataset.fx==='off'||matchMedia('(prefers-reduced-motion:reduce)').matches||document.querySelector('.aw')?0:SNV(),
+size=()=>{R=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*R;cv.height=H*R;cx.setTransform(R,0,0,R,0,0)},
+want=l=>l?Math.round(Math.max(40,Math.min(l==2?190:105,W*H/(l==2?7500:15000)))):0,
+mkf=top=>{const z=Math.random();return{x:Math.random()*W,y:top?-10:Math.random()*H,z,r:.8+z*2.6,v:18+z*55,ph:Math.random()*6.28,sw:.4+Math.random()*.9}},
+kick=()=>{if(!run&&!document.hidden){run=1;requestAnimationFrame(loop)}},
+loop=ts=>{run=0;const l=lvl();if(!l){cx.clearRect(0,0,W,H);F.length=0;return}const n=want(l);while(F.length<n)F.push(mkf(0));if(F.length>n)F.length=n;
+const dt=Math.min(.05,(ts-t0)/1000||.016);t0=ts;const dy=scrollY-ly;ly=scrollY;wind+=(Math.max(-60,Math.min(60,dy*2))-wind)*.08;cx.clearRect(0,0,W,H);cx.fillStyle='#fff';
+for(const f of F){f.ph+=dt*f.sw;f.y+=f.v*dt;f.x+=(Math.sin(f.ph)*14+wind*(.4+f.z)+8)*dt;if(f.y>H+8||f.x>W+12||f.x<-12){Object.assign(f,mkf(1))}
+cx.globalAlpha=.35+f.z*.6;cx.shadowBlur=f.z>.85?6:0;cx.shadowColor='#cfe9ff';cx.beginPath();cx.arc(f.x,f.y,f.r,0,6.283);cx.fill()}
+cx.globalAlpha=1;cx.shadowBlur=0;kick()};
+size();addEventListener('resize',()=>{size();F.length=0;kick()});document.addEventListener('visibilitychange',kick);setInterval(kick,1500);kick();
+Object.assign(A,{sntog:()=>{S.shop.snow=(SNV()+1)%3;render()}})}
 </script></body></html>
