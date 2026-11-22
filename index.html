@@ -1700,7 +1700,7 @@ html[data-fx=on] .incc{animation:sfChip .6s cubic-bezier(.2,1.3,.4,1) both;anima
 .bzsr{display:flex;gap:12px;overflow-x:auto;padding:6px 6px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
 .bzsr::-webkit-scrollbar{display:none}
 .bzsc{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;width:72px;padding:0;border:0;background:none;color:inherit;cursor:pointer;scroll-snap-align:start;animation:bzPop .5s var(--k-spring,ease) both;animation-delay:calc(var(--i,0)*60ms)}
-.bzsa{display:block;width:66px;height:66px;border-radius:50%;padding:3px;background:conic-gradient(from 210deg,#7fd3ff,var(--c1,#3f95f5),#b77bff,#ff7ac6,#ffd24a,#7fd3ff);box-shadow:0 0 0 2px var(--k-ink,#020b2e),0 4px 12px rgba(0,0,0,.4);animation:bzGlow 2.6s ease-in-out infinite}
+.bzsa{display:block;width:66px;height:66px;border-radius:50%;padding:3px;background:conic-gradient(from 210deg,#7fd3ff,var(--c1,#3f95f5),#b77bff,#ff7ac6,#ffd24a,#7fd3ff);box-shadow:0 0 0 2px var(--k-ink,#020b2e),0 4px 12px rgba(0,0,0,.4);position:relative}
 .bzsc.sn .bzsa{background:linear-gradient(160deg,#6b7896,#39445f);animation:none}
 .bzsc.bzlk .bzsa{background:linear-gradient(135deg,#fff6bf,#ffd24a 50%,#ff9a14);animation:none}
 .bzsi{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;background:#0b1a44 center/cover no-repeat;border:3px solid var(--k-ink,#020b2e);font-size:26px;box-sizing:border-box}
@@ -1864,7 +1864,82 @@ html[data-fx=on] .incc{animation:sfChip .6s cubic-bezier(.2,1.3,.4,1) both;anima
 /* « Effets animés » coupés ou « Réduire les animations » du téléphone */
 html[data-fx=off] .bzsc,html[data-fx=off] .bzsa,html[data-fx=off] .bzeta,html[data-fx=off] .bzetl i,html[data-fx=off] .bzadc,html[data-fx=off] .bzadc::after,html[data-fx=off] .bzadi,html[data-fx=off] .bzadhi,html[data-fx=off] .bzd,html[data-fx=off] .bzsure,html[data-fx=off] .bzok,html[data-fx=off] #bzbk,html[data-fx=off] .bztkp,html[data-fx=off] .bztkc .bztkr,html[data-fx=off] .bzpkc,html[data-fx=off] .bzpki i,html[data-fx=off] #bzsv,html[data-fx=off] .bzsvm img,html[data-fx=off] .bzsvm video{animation:none!important}
 @media (prefers-reduced-motion:reduce){.bzsc,.bzsa,.bzeta,.bzetl i,.bzadc,.bzadc::after,.bzadi,.bzadhi,.bzd,.bzsure,.bzok,#bzbk,.bztkp,.bztkc .bztkr,.bzpkc,.bzpki i,#bzsv,.bzsvm img,.bzsvm video{animation:none!important}.bzgb i,.bzit i,.bzar span{transition:none!important}}
-</style></head><body><div id="app"></div><div id="m"></div>
+
+/* ===== MOTION v62 : mouvement premium =====
+   Complète les couches précédentes sans les remplacer. Tout ce qui bouge passe par transform / opacity
+   (calculé par la carte graphique). Coupé par l'interrupteur « Effets animés » (html[data-fx=off])
+   et par « Réduire les animations » du téléphone (règles globales plus haut). */
+@keyframes mzSpin{to{transform:rotate(360deg)}}
+@keyframes mzBreath{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.8);opacity:.65}}
+@keyframes mzBootIn{from{opacity:0;transform:scale(.6)}}
+@keyframes mzViewIn{from{opacity:0;transform:translateY(22px) scale(.985)}}
+@keyframes mzSwap{from{opacity:0;transform:translateY(14px)}}
+@keyframes mzGlowO{0%,100%{opacity:0}50%{opacity:1}}
+
+/* ---------- 1. Écran de démarrage : remplace l'écran noir et rouge pendant le chargement du fichier ---------- */
+.mzboot{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;pointer-events:none;
+  background:#031033;background:radial-gradient(120% 70% at 50% -10%,color-mix(in srgb,var(--mzc,#007ceb) 45%,transparent),transparent 62%),radial-gradient(90% 55% at 50% 112%,color-mix(in srgb,var(--mzc,#007ceb) 30%,transparent),transparent 60%),#031033}
+.mzboot i{position:absolute;width:86px;height:86px;border-radius:50%;box-sizing:border-box;border:4px solid rgba(255,255,255,.12);border-top-color:#fff;border-right-color:var(--mzc,#007ceb);box-shadow:0 0 34px -8px var(--mzc,#007ceb);animation:mzBootIn .5s cubic-bezier(.34,1.56,.64,1) both,mzSpin 1s linear infinite}
+.mzboot i+i{width:60px;height:60px;border-width:3px;border-color:transparent;border-top-color:var(--mzc,#007ceb);border-bottom-color:#fff;box-shadow:none;animation:mzBootIn .5s .08s cubic-bezier(.34,1.56,.64,1) both,mzSpin 1.5s linear infinite reverse}
+.mzboot b{position:relative;font:400 26px/1 system-ui,sans-serif;color:#fff;filter:drop-shadow(0 0 10px var(--mzc,#007ceb));animation:mzBreath 1.6s ease-in-out infinite}
+.mzboot b::before{content:"❄"}
+
+/* ---------- 2. Performance : barre de progression déplacée par la carte graphique (plus de recalcul de mise en page) ---------- */
+#spb{width:100%!important;transform:translateX(-100%);will-change:transform}
+
+/* ---------- 3. Changement d'écran (boutique ↔ administration) : le contenu arrive en douceur ---------- */
+@media (prefers-reduced-motion:no-preference){
+  :root:not(#k):not(#k)[data-fx=on] #app>.w.mz-in>:not(.cb):not(.fab):not(.up){animation:mzViewIn .55s cubic-bezier(.16,1,.3,1) both}
+  :root:not(#k):not(#k)[data-fx=on] #app>.w.mz-in>:nth-child(2){animation-delay:.04s}
+  :root:not(#k):not(#k)[data-fx=on] #app>.w.mz-in>:nth-child(3){animation-delay:.08s}
+  :root:not(#k):not(#k)[data-fx=on] #app>.w.mz-in>:nth-child(4){animation-delay:.12s}
+  :root:not(#k):not(#k)[data-fx=on] #app>.w.mz-in>:nth-child(5){animation-delay:.16s}
+  :root:not(#k):not(#k)[data-fx=on] #app>.w.mz-in>:nth-child(n+6){animation-delay:.2s}
+}
+
+/* ---------- 4. Profondeur : quand une fenêtre s'ouvre, la page derrière recule puis revient en ressort ---------- */
+@media (prefers-reduced-motion:no-preference){
+  :root:not(#k):not(#k)[data-fx=on] .mz-dp{transition:scale .62s cubic-bezier(.34,1.45,.64,1)}
+  :root:not(#k):not(#k)[data-fx=on] body.mz-mo .mz-dp{scale:.94;transition:scale .5s cubic-bezier(.16,1,.3,1)}
+}
+
+/* ---------- 5. Fenêtres : contenu remplacé (fiche → panier, case → surprise…) qui arrive en fondu ---------- */
+@media (prefers-reduced-motion:no-preference){
+  :root:not(#k):not(#k)[data-fx=on] #m .sh.mz-sw>*{animation:mzSwap .42s cubic-bezier(.16,1,.3,1) both}
+  :root:not(#k):not(#k)[data-fx=on] #m .sh.mz-sw>:nth-child(2){animation-delay:.04s}
+  :root:not(#k):not(#k)[data-fx=on] #m .sh.mz-sw>:nth-child(3){animation-delay:.08s}
+  :root:not(#k):not(#k)[data-fx=on] #m .sh.mz-sw>:nth-child(n+4){animation-delay:.12s}
+}
+
+/* ---------- 6. Envol produit : la photo de la carte rejoint sa place dans la fiche ---------- */
+.mzfly{position:fixed;z-index:100001;pointer-events:none;background:#0b1a44 50% 50%/cover no-repeat;border-radius:18px;will-change:transform,clip-path,opacity;box-shadow:0 22px 44px -14px rgba(0,0,0,.7)}
+#m.mz-ms .ov,#m.mz-ms .sh,#m.mz-ms .sh *{animation:none!important;transition:none!important}
+#m.mz-fl .sl>:first-child{animation:none!important}
+
+/* ---------- 7. Pastille de catégorie qui glisse jusqu'à sa nouvelle place ---------- */
+.ch.mz-mv{position:relative;z-index:3}
+
+/* ---------- 8. Ordinateur : lumière qui suit la souris + photo en profondeur dans les cartes ---------- */
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  :root:not(#k):not(#k)[data-fx=on] .pc.mz-hv::after{background:radial-gradient(circle at var(--kmx,50%) var(--kmy,50%),rgba(255,255,255,.3),rgba(255,255,255,.07) 30%,transparent 56%),linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,0) 26%)}
+  :root:not(#k):not(#k)[data-fx=on] .pc:not(.pre) .ph{transition:translate .35s cubic-bezier(.16,1,.3,1),scale .6s cubic-bezier(.16,1,.3,1)}
+  :root:not(#k):not(#k)[data-fx=on] .pc.mz-hv:not(.pre) .ph{translate:calc(var(--mzx,0) * -14px) calc(var(--mzy,0) * -14px);scale:1.08}
+  :root:not(#k):not(#k)[data-fx=on] :is(.bzpkc,.bzadc,.bztkp,.bzeta){transition:translate .45s cubic-bezier(.34,1.56,.64,1)}
+  :root:not(#k):not(#k)[data-fx=on] :is(.bzpkc,.bzadc,.bztkp,.bzeta):hover{translate:0 -4px}
+  :root:not(#k):not(#k)[data-fx=on] .bzpkc .bzpki i{transition:scale .45s cubic-bezier(.34,1.56,.64,1)}
+  :root:not(#k):not(#k)[data-fx=on] .bzpkc:hover .bzpki i{scale:1.12}
+  :root:not(#k):not(#k)[data-fx=on] .bzsa{transition:scale .4s cubic-bezier(.34,1.56,.64,1)}
+  :root:not(#k):not(#k)[data-fx=on] .bzsc:hover .bzsa{scale:1.08}
+}
+/* toucher : petit retour sur les blocs v61 */
+:root:not(#k):not(#k)[data-fx=on] :is(.bzpkc,.bzadc,.bztkp):active{scale:.97;transition:scale .08s ease-out}
+
+/* ---------- 9. Halo des stories : l'opacité d'un calque au lieu d'une ombre redessinée à chaque image ---------- */
+:root:not(#k):not(#k) .bzsc:not(.sn):not(.bzlk) .bzsa::after{content:"";position:absolute;inset:-3px;border-radius:50%;box-shadow:0 0 16px 4px rgba(127,211,255,.6);opacity:0;pointer-events:none;animation:mzGlowO 2.6s ease-in-out infinite}
+
+/* ---------- 10. Logo : légère parallaxe au défilement (calée par le script, propriétés translate / scale) ---------- */
+#app .brand{transform-origin:50% 0}
+</style></head><body><div id="app"><div class=mzboot aria-hidden=true style="--mzc:#007ceb"><i></i><i></i><b></b></div></div><div id="m"></div>
 <script id="d" type="application/json">{"shop":{"name":"","tag":"","btn":"Commander","c1":"#007ceb","c2":"#012f7b","logo":"media/m2ww7kuo4glb.png","banner":"","open":true,"min":100,"wa":"","ph":"p1$cb4e338ac718bf0f4e048464db7e51fe$a5609ae47211ec6b37a89c74850b3216a606f92cee65b9c7a8750d830b6eca15","info":"","txtT":"","txt":"","hrs":{"sp":["12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00"],"dl":["12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00"]},"tiers":[{"km":5,"fee":5},{"km":10,"fee":10},{"km":20,"fee":30}],"bar":"Livraison Grenoble / Nancy / Les Vosges et tous leurs alentours - LIVRAISON RAPIDE ET SÉCURISÉ  - PRODUITS D'EXCEPTIONS TOUT L'ANNÉE ","foot":"GREENLAND LE NUMERO DU DEPARTEMENT 38,54 ET 88 \n","hwt":"Comment ça marche","stt":"En chiffres","pit":"Nos incontournables","pqt":"Pourquoi nos produits","pqx":"","short":"MA BOUTIQUE","bg":"#ffffff","tx":"#000000","mu":"#0161fd","bgi":"media/ds44i4asj853.jpg","ht":"#000000","fx":1,"ogi":"media/dwjck1cyx2bx.jpg","ogl":"media/m2ww7kuo4glb.png"},"prods":[{"id":"0xywzk","n":"B","d":"","p":3,"c":"","pr":[],"im":["media/b2th49vnew6h.jpg"],"v":"media/4jkb6un2znz3.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":0,"nw":0,"rr":1,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}},{"id":"5lkydo","n":"C","d":"","p":4,"c":"","pr":[],"im":["media/ivq2js8tri7e.jpg"],"v":"media/syi7e4vbz00d.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":0,"nw":1,"rr":0,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}},{"id":"6suv1b","n":"D","d":"","p":6,"c":"","pr":[],"im":["media/tycf1i6v43xk.jpg"],"v":"media/da6txeu884v3.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":0,"nw":0,"rr":1,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}},{"id":"31m52t","n":"E","d":"","p":8,"c":"","pr":[],"im":["media/avjwnx1fpac8.jpg"],"v":"media/7qeluoz0hc1e.mp4","x":[],"bi":"","ef":"","st":"","bm":1,"bs":1,"nw":0,"rr":0,"cs":0,"sc":0,"nf":0,"lab":{"thc":"","n":"","u":""}}],"promos":[],"qual":[{"i":"🧪","t":"Analyses consultables","d":"Quand une analyse laboratoire existe, vous la retrouvez sur la fiche du produit."},{"i":"🔎","t":"Fiches détaillées","d":"Photos, prix et options : tout est expliqué sur chaque fiche produit."},{"i":"📦","t":"Disponibilité claire","d":"En stock, sur commande ou bientôt disponible : c’est indiqué sur chaque produit."}],"how":[{"t":"Choisissez","d":"Parcourez la carte et ajoutez vos produits au panier."},{"t":"Validez","d":"Indiquez votre nom, votre téléphone et votre adresse."},{"t":"Envoyez","d":"Envoyez la commande : la boutique la confirme avec vous."},{"t":"Recevez","d":"Livraison ou retrait, paiement sur place."}],"stats":[],"perks":[{"i":"","t":"","d":""}],"steps":[],"faq":[],"rev":[],"links":[{"l":"TELEGRAMME ","u":"https:/t.me/greenland38"},{"l":"TATO (POTATOS )","u":"https://tato.im/greenland38"}],"legal":{"age":0,"mentions":"","cgv":""},"codes":[],"loy":{"on":0,"rule":"1 point = 1 € dépensé, crédité automatiquement dès la livraison de votre commande.","n":5,"pct":10,"tiers":[{"pts":350,"pct":0,"eur":10,"t":"","g":""},{"pts":700,"pct":0,"eur":25,"t":"","g":""},{"pts":1000,"pct":0,"eur":40,"t":"","g":""},{"pts":1500,"pct":0,"eur":70,"t":"","g":""},{"pts":2000,"pct":0,"eur":100,"t":"","g":""}],"img":"","ppe":1,"rmin":60,"mg":50},"splash":{"on":1,"img":"media/xow4fbvr9wni.jpg","t":"","d":"","btn":"Découvrir 👉","fx":"zoom","vid":"media/56iucc1axo7h.mp4"},"v":1795314424108,"bot":{"on":1,"hi":"Bonjour 👋 Je suis l’assistant de la boutique. Posez-moi votre question !","qa":[],"mk":{"on":1,"msg":"","ids":[],"aud":"all","promo":1}},"mus":{"on":1,"d":1,"l":[{"id":"pxwxcz","n":"Imed zee - Horloger #4","fl":[{"t":"Imed zee - Horloger #4 (Visualizer)","u":"media/d0b4brmtfoeu.mp3"}]}],"auto":1},"sb":{"url":"https://sfvjlluqyuewmiytsmqn.supabase.co","key":"sb_publishable_vcaDKcDxviR4cz3skpSgSA_rZKxRDdZ"},"zones":[{"id":"rkonmo","n":"Grenoble","fee":5,"min":"","on":1,"zk":"kko8s6g","sv":["Eybens","Vizille","Seyssins"]},{"id":"wfupyt","n":"Lyon","fee":5,"min":"","on":1,"zk":"kul2gfh","sv":["Villeurbanne","Bron"]},{"id":"33gwvk","n":"Chambéry","fee":5,"min":"","on":1,"zk":"ka9wwgb"},{"id":"ms2eti","n":"Meylan","fee":5,"min":"","on":1,"zk":"kuim682"}],"zfree":{"0":100,"5":100},"cards":[],"idv":{"on":0,"req":0,"del":0,"t":"Vérification du compte","txt":""},"cinfo":{"t":"","txt":""},"ref":{"on":1,"n":5,"pct":10,"eur":0,"fpct":10,"feur":0},"hv":{"on":1,"src":"","loop":1,"list":[],"tl":[]},"refs":[],"zlab":{"0":"NANCY ET SES ALENTOURS ","5":"GRENOBLES ET SES ALENTOURS ","kuim682":"Grenoble est ses alentours "},"news":[{"id":"1owwzo","ts":1795314248397,"t":"Lieux de livraison","d":"","im":["media/v9kat876jvzq.jpg"],"v":"","pub":1,"pin":0,"m2":1,"nf":0}],"push":{"on":0,"vk":"","pk":1,"nw":1,"mg":1},"mig":3,"supm":1,"sup":[],"infc":{"age":{"i":"👥","t":"Espace Client","txt":"Retrouvez vos informations, vos commandes et votre programme de fidélité depuis votre espace client."},"ref":{"on":0},"pay":{"txt":"Nous acceptons que les paiements en cash. "}},"stories":{"on":1,"t":"","max":10,"dur":5,"btn":"Voir l’actu","lock":"Membres"},"eta":{"on":1,"m":"🔥 Forte demande : ~1 h","hrs":1,"live":"EN DIRECT","ps":["⚡ Livraison express : ~15 min","🛵 Livraison en ~30 min","⏳ Livraison en ~45 min","🔥 Forte demande : ~1 h","😴 Livraison en pause, retour très vite"],"ts":1795314174004},"ticket":{"on":0,"t":"🎟️ Ton ticket à gratter","d":"Gratte avec ton doigt pour découvrir ton gain !","cover":"GRATTE ICI","win":"Bravo ! 🎉","lose":"Pas de chance cette fois… Retente ta chance à ta prochaine commande ! 🍀","hint":"Utilise ton code à ta prochaine commande.","pend":"🎟️ Tu as un ticket à gratter !","code":"Ton code","copy":"Copier","days":7,"lots":[{"e":"🏷️","l":"−10 % sur ta prochaine commande","code":"","w":25,"lose":0},{"e":"🛵","l":"Livraison offerte à ta prochaine commande","code":"","w":15,"lose":0},{"e":"🎁","l":"Un petit cadeau surprise avec ta prochaine commande","code":"","w":10,"lose":0},{"e":"🍀","l":"","code":"","w":50,"lose":1}]},"advent":{"on":1,"start":"2026-12-01","n":24,"t":"Calendrier de l’Avent","st":"Une surprise à ouvrir chaque jour jusqu’à Noël 🎁","btn":"Ouvrir la case du jour","day":"Jour {n}","soon":"Ouverture le {date} : plus que {j} jour(s) !","lock":"Patience ! Cette case s’ouvre le {date} 🔒","code":"Ton code promo","use":"Utiliser le code","copy":"Copier","exp":"Offre terminée","back":"← Retour au calendrier","days":[{"e":"🎄","t":"C’est parti !","d":"Bienvenue dans notre calendrier de l’Avent : reviens chaque jour pour ouvrir une nouvelle case.","code":"","img":""},{"e":"🫙","t":"Astuce conservation","d":"Garde tes fleurs dans un bocal en verre bien fermé, à l’abri de la lumière et de la chaleur : elles gardent leurs arômes plus longtemps.","code":"","img":""},{"e":"👃","t":"Le saviez-vous ?","d":"Les arômes d’une fleur viennent de ses terpènes : ce sont eux qui donnent les notes fruitées, boisées ou épicées.","code":"","img":""},{"e":"🍋","t":"Terpène du jour : le limonène","d":"On le retrouve aussi dans le zeste de citron et d’orange : c’est lui qui donne les notes d’agrumes.","code":"","img":""},{"e":"🌲","t":"Terpène du jour : le pinène","d":"Son parfum rappelle la forêt de pins. C’est l’un des terpènes les plus répandus dans la nature.","code":"","img":""},{"e":"🎅","t":"Bonne Saint-Nicolas !","d":"Une petite douceur t’attend peut-être dans les prochaines cases…","code":"","img":""},{"e":"🧪","t":"Qualité contrôlée","d":"Quand une analyse laboratoire existe, tu la retrouves dans la fiche du produit avec le badge 🧪.","code":"","img":""},{"e":"💜","t":"Terpène du jour : le linalol","d":"On le retrouve dans la lavande : il apporte des notes florales.","code":"","img":""},{"e":"🤍","t":"Tes favoris","d":"Touche le cœur sur un produit pour le retrouver en un clin d’œil.","code":"","img":""},{"e":"🌶️","t":"Terpène du jour : le caryophyllène","d":"Présent dans le poivre noir, il donne des notes épicées et poivrées.","code":"","img":""},{"e":"🔔","t":"Ne rate rien","d":"Active les notifications pour être prévenu(e) des nouveautés et des offres.","code":"","img":""},{"e":"↗️","t":"Fais découvrir","d":"Un produit te plaît ? Touche « Partager » sur sa fiche pour l’envoyer à un ami.","code":"","img":""},{"e":"🥭","t":"Terpène du jour : le myrcène","d":"On le retrouve dans la mangue et le houblon : il apporte des notes fruitées et terreuses.","code":"","img":""},{"e":"📦","t":"Suivi de commande","d":"Suis l’avancement de ta commande en direct dans « Mon compte ».","code":"","img":""},{"e":"❄️","t":"Mi-parcours !","d":"Plus que 10 cases avant Noël. Merci de faire partie de la communauté !","code":"","img":""},{"e":"🍫","t":"Ambiance gourmande","d":"Les arômes gourmands (chocolat, café, vanille) collent parfaitement à l’ambiance des fêtes.","code":"","img":""},{"e":"🌸","t":"Terpène du jour : le géraniol","d":"Présent dans la rose et le géranium, il apporte des notes florales et douces.","code":"","img":""},{"e":"🎁","t":"Idée cadeau","d":"Un pack découverte, c’est l’idée cadeau qui fait plaisir à coup sûr.","code":"","img":""},{"e":"🪪","t":"Bien choisir","d":"Regarde la carte d’identité des produits : taux de CBD, intensité et arômes pour trouver ton favori.","code":"","img":""},{"e":"🛵","t":"Pense à commander tôt","d":"Pendant les fêtes, la demande augmente : commande un peu en avance.","code":"","img":""},{"e":"☀️","t":"Solstice d’hiver","d":"C’est la nuit la plus longue de l’année : dès demain, les jours rallongent !","code":"","img":""},{"e":"🙌","t":"Merci !","d":"Merci pour ta confiance tout au long de l’année.","code":"","img":""},{"e":"🌟","t":"Veille de réveillon","d":"Plus qu’une case avant le grand jour !","code":"","img":""},{"e":"🎅","t":"Joyeux Noël !","d":"Toute l’équipe te souhaite un joyeux Noël et de belles fêtes.","code":"","img":""}]},"packs":{"on":1,"t":"Packs découverte","st":"Compose ton pack et économise","btn":"Composer mon pack","add":"Ajouter le pack au panier","pick":"Choisis {n} article(s)","left":"Encore {n} à choisir","full":"Ton pack est complet ✅","save":"Tu économises {montant}","list":[{"id":"pk1","on":0,"e":"🎁","n":"Pack Découverte","d":"3 produits au choix : le bon plan pour tout goûter","nb":3,"cat":"","ids":[],"fmt":"","pct":15,"fxp":0,"img":""}]},"fiche":{"on":1,"t":"Carte d’identité","cbd":"CBD","thc":"THC","it":"Intensité","ar":"Arômes","lab":"Analyse labo","cmax":30,"tmax":0.3,"thcl":"","vib":1,"sug":"Fruité, Agrumes, Fraise, Myrtille, Mangue, Terreux, Boisé, Pin, Épicé, Poivré, Sucré, Gourmand, Floral, Menthe, Herbacé, Vanille, Café"},"bis":{"on":1,"btn":"🔔 Me prévenir","t":"Bientôt de retour !","d":"Ce produit est épuisé pour le moment. Touche le bouton : on te prévient dès qu’il revient.","ok":"C’est noté ! Tu seras prévenu(e) dès son retour 🔔","ntf":"Active aussi les notifications pour être prévenu(e) même quand l’application est fermée.","back":"🎉 {produit} est de retour !","see":"Voir","push":1,"pt":"✅ {produit} est de retour !","pd":"Il est de nouveau disponible : fonce avant la rupture !"}}</script>
 <script id="js">
 function SNV(){return S.shop.snow===undefined?1:+S.shop.snow}
@@ -2010,7 +2085,7 @@ const rd=b=>new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result);f.
 const dat2=async d=>{const i=d.indexOf(','),t=(d.slice(5,i).split(';')[0]),p='media/'+uid()+uid()+'.'+(EXT[t]||'bin');await ghPut(p,d.slice(i+1),'Ajout d’un média',1);PM[p]=d;return p};
 const mig=async()=>{const t=async o=>(typeof o=='string'&&o.startsWith('data:'))?await dat2(o):o,s=S.shop;for(const k of['logo','banner','bgi'])s[k]=await t(s[k]);for(const p of S.prods){for(let i=0;i<p.im.length;i++)p.im[i]=await t(p.im[i]);p.v=await t(p.v)}};
 const ap=()=>{const r=document.documentElement.style;r.setProperty('--c1',S.shop.c1);r.setProperty('--c2',S.shop.c2);document.title=S.shop.name;const s=S.shop,b=s.bg;['--bg','--tx','--mu','--cd','--ln','--bgi','--ht'].forEach(k=>r.removeProperty(k));r.colorScheme='';if(b){const n=parseInt(b.slice(1),16),d=((n>>16)*299+(n>>8&255)*587+(n&255)*114)/1000<140;r.setProperty('--bg',b);r.setProperty('--tx',d?'#F3F1EC':'#1B1A18');r.setProperty('--mu',d?'#B5B0A8':'#6F6A63');r.setProperty('--cd',d?'color-mix(in srgb,'+b+' 88%,#fff)':'#fff');r.setProperty('--ln',d?'color-mix(in srgb,'+b+' 78%,#fff)':'color-mix(in srgb,'+b+' 88%,#000)');r.colorScheme=d?'dark':'light'}{const x=parseInt(String(s.c1).slice(1),16),f=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)},L=.2126*f(x>>16)+.7152*f(x>>8&255)+.0722*f(x&255);r.setProperty('--c1t',1.05/(L+.05)>=(L+.05)/.0515?'#fff':'#02060f')}{const q=parseInt(String(s.c2).slice(1),16);r.setProperty('--c2t',((q>>16)*299+(q>>8&255)*587+(q&255)*114)/1000<140?'#fff':'#1B1A18')}if(s.tx)r.setProperty('--tx',s.tx);if(s.mu)r.setProperty('--mu',s.mu);if(s.ht)r.setProperty('--ht',s.ht);if(s.bgi)r.setProperty('--bgi','url('+JSON.stringify(PM[s.bgi]||s.bgi)+')')};
-const modal=h=>{const m=$('#m');m.className=h&&!m.firstChild?'op':'';m.innerHTML=fx(h?`<div class=ov data-a=ovl><div class=sh>${h}<button class="b b2 cl" data-a=x>Fermer</button></div></div>`:'')};
+const modal=h=>{const m=$('#m');try{if(mzM0(m,h))return}catch(x){}m.className=h&&!m.firstChild?'op':'';m.innerHTML=fx(h?`<div class=ov data-a=ovl><div class=sh>${h}<button class="b b2 cl" data-a=x>Fermer</button></div></div>`:'');try{mzM1(m,h)}catch(x){}};
 const cf=(el,fn)=>{if(el.dataset.cf)return fn();el.dataset.t=el.textContent;el.dataset.cf=1;el.textContent='Confirmer ?';setTimeout(()=>{if(el.isConnected){el.textContent=el.dataset.t;delete el.dataset.cf}},3000)};
 const emo=c=>'🍽️',catn=c=>c||'Sans catégorie';
 const cu=n=>{try{return Promise.resolve(window.claude.use(n)).catch(()=>null)}catch(x){return Promise.resolve(null)}};
@@ -2174,7 +2249,7 @@ TV.bot=()=>{const b=S.bot;return `<div class=rt style="border:0"><span style="fl
 ${b.qa.map((x,i)=>`<div class=cd><label>Mots-clés<input data-i=bq data-k="${i}:k" value="${e(x.k)}"></label><label>Réponse<textarea rows=3 data-i=bq data-k="${i}:a">${e(x.a)}</textarea></label><button class="b b2 bs" data-a=bqdel data-k=${i}>Supprimer</button></div>`).join('')}<button class="b b2 bs" data-a=bqadd>+ Ajouter une réponse</button>
 <h3>Tester l’assistant</h3><div class=rt style="border:0"><input id=bti placeholder="Posez une question comme un client"><button class="b bs" data-a=btest>Tester</button></div><div id=btr class=mu style="white-space:pre-line"></div>`};
 const adm=()=>`<div class="w aw"><div class=bar><b>${e(S.shop.name)} · Administration</b><span style="display:flex;gap:6px;flex:none"><button class="b b2 bs" data-a=todo aria-label="À faire" style="${todoN()?'background:#D92D20;color:#fff;border-color:#D92D20':''}">🔔${todoN()?' '+todoN():''}</button><button class="b b2 bs" data-a=desk aria-label="${DKon()?'Revenir à l’affichage mobile':'Afficher le site en format ordinateur'}" title="${DKon()?'Affichage mobile':'Format ordinateur'}" aria-pressed="${DKon()}">${DKon()?'📱':'🖥️'}</button><button class="b b2 bs" data-a=shop>Voir la boutique</button></span></div><div class=rw>${TABS.map(([k,l])=>`<button class="ch ${TAB==k?'on':''}" data-a=tab data-k="${k}">${l}${(k=='cl'||k=='idv')&&pendN()?' 🔴 '+pendN():''}${k=='cl'&&ONEW?' 🆕 '+ONEW:''}${k=='msg'&&MSU()?' 🔴 '+MSU():''}</button>`).join('')}</div><p class=mu style="margin:8px 0 0">Vos clients voient les changements une fois publiés (bouton « Publier » en bas).</p><div style="margin-top:10px">${subH(TAB,(TV[TAB]||TV.prod)())}</div></div><div class=fab style="gap:8px"><button class=b style="flex:1" data-a=gh>Publier sur GitHub</button><button class="b b2" data-a=pub>Télécharger</button></div>`;
-const an=(c='an')=>{document.body.classList.add(c);setTimeout(()=>document.body.classList.remove(c),2200)};const render=()=>{ap();document.documentElement.dataset.fx=S.shop.fx===0?'off':'on';document.documentElement.dataset.t3=S.shop.t3===0?'off':'on';document.documentElement.style.setProperty('--t',-(Date.now()%6e4)+'ms');const hv0=$('#hv'),hpl=hv0?[...hv0.querySelectorAll('video')].filter(v=>!v.paused):[],hk=n=>[...n.querySelectorAll('video')].map(v=>v.getAttribute('src')).join('|')+(n.querySelector('video')&&n.querySelector('video').loop?'L':'')+'#'+[...n.querySelectorAll('.hvt:not(.hva)')].map(x=>x.textContent).join('|');{const app=$('#app'),tp=document.createElement('template');tp.innerHTML=fx(V=='adm'&&AM?adm():shop());const hn=tp.content.querySelector('#hv'),same=!!(hv0&&hn&&hk(hv0)==hk(hn)),inApp=!!(hv0&&app.contains(hv0)),ow=inApp&&hv0.parentNode,nw=hn&&hn.parentNode;
+const an=(c='an')=>{document.body.classList.add(c);setTimeout(()=>document.body.classList.remove(c),2200)};const render=()=>{try{mzR0()}catch(x){}ap();document.documentElement.dataset.fx=S.shop.fx===0?'off':'on';document.documentElement.dataset.t3=S.shop.t3===0?'off':'on';document.documentElement.style.setProperty('--t',-(Date.now()%6e4)+'ms');const hv0=$('#hv'),hpl=hv0?[...hv0.querySelectorAll('video')].filter(v=>!v.paused):[],hk=n=>[...n.querySelectorAll('video')].map(v=>v.getAttribute('src')).join('|')+(n.querySelector('video')&&n.querySelector('video').loop?'L':'')+'#'+[...n.querySelectorAll('.hvt:not(.hva)')].map(x=>x.textContent).join('|');{const app=$('#app'),tp=document.createElement('template');tp.innerHTML=fx(V=='adm'&&AM?adm():shop());const hn=tp.content.querySelector('#hv'),same=!!(hv0&&hn&&hk(hv0)==hk(hn)),inApp=!!(hv0&&app.contains(hv0)),ow=inApp&&hv0.parentNode,nw=hn&&hn.parentNode;
 const play=()=>hpl.forEach(v=>{if(v.paused)v.play().catch(()=>{})});
 if(same&&inApp&&ow.parentNode===app&&app.children.length==1&&nw.parentNode===tp.content&&tp.content.children.length==1){
 /* la vidéo reste en place : on ne remplace que ce qui l'entoure, donc ni coupure du son ni redémarrage */
@@ -2185,9 +2260,9 @@ else if(hv0&&inApp&&!same&&snd){let k=$('#hvk');if(!k){k=document.createElement(
 else if(hv0&&!inApp&&hn&&!same){hv0.remove()}
 app.innerHTML='';app.appendChild(tp.content);
 if(hk0){const h2=app.querySelector('#hv');if(h2){h2.replaceWith(hk0);play()}}}
-}{const b=$('.aw .bar');document.documentElement.style.setProperty('--bh',(b?b.offsetHeight:58)+'px')}mpr();sv()};
+}{const b=$('.aw .bar');document.documentElement.style.setProperty('--bh',(b?b.offsetHeight:58)+'px')}mpr();sv();try{mzR1()}catch(x){}};
 const pubP=p=>{const q={...p};delete q.a;delete q.lk;delete q.fo;delete q.pa;delete q.k;if(Array.isArray(q.pr))q.pr=q.pr.map(v=>{const w={...v};delete w.a;return w});return q};
-const doc=js=>'<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>'+e(S.shop.name)+'</title>'+hd()+'\n<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500;600;700;800&family=Lora:ital,wght@0,500;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">\n<style id="css">'+$('#css').textContent+'</style></head><body><div id="app"></div><div id="m"></div>\n<script id="d" type="application/json">'+JSON.stringify(Object.assign({},S,{news:nstrip(S.news),prods:S.prods.map(pubP),sup:[]})).replace(/</g,'\\u003c')+'<\/script>\n<script id="js">'+js+'<\/script></body></html>';
+const doc=js=>'<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>'+e(S.shop.name)+'</title>'+hd()+'\n<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500;600;700;800&family=Lora:ital,wght@0,500;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">\n<style id="css">'+$('#css').textContent+'</style></head><body><div id="app">'+mzBootH()+'</div><div id="m"></div>\n<script id="d" type="application/json">'+JSON.stringify(Object.assign({},S,{news:nstrip(S.news),prods:S.prods.map(pubP),sup:[]})).replace(/</g,'\\u003c')+'<\/script>\n<script id="js">'+js+'<\/script></body></html>';
 /* ---------- Actions ---------- */
 const A={lsadd:el=>{const g=el.dataset.k;S[g].push(Object.fromEntries(LS.find(r=>r[0]==g).slice(2).map(f=>[f[0],''])));render()},lsdel:el=>{const[g,i]=el.dataset.k.split(':');S[g].splice(+i,1);render()},go:()=>{const m=$('#menu');if(m)m.scrollIntoView({behavior:'smooth'})},cat:el=>{F=el.dataset.k;PGN=12;an('ac');render()},more:()=>{PGN+=12;const g=$('#pg');if(g)g.innerHTML=fx(pgrid())},x:()=>modal(),ovl:(el,ev)=>{if(ev.target==el)modal()},
 prod:el=>{const p=S.prods.find(x=>x.id==el.dataset.k);if(!p)return;if(p.o&&!p.cs)return toast('Ce produit est momentanément épuisé.');Q={p,q:1,x:[],u:p.p};modal(`<div class=sl style="margin-top:14px">${p.v?`<video src="${p.v}#t=0.1" controls playsinline preload=metadata></video>`:''}${p.im.map(s=>`<img src="${s}" alt="${e(p.n)}" decoding=async>`).join('')||`<div class=ph>${emo(p.c)}</div>`}</div>${(p.v?1:0)+p.im.length>1?'<p class=mu style="text-align:center;margin:6px 0 0;font-size:13px">‹ glissez pour voir la suite ›</p>':''}${p.c?`<span class=cat>${e(p.c)}</span>`:''}<div class=pth><h2>${e(p.n)}</h2><b class=pp id=pu>${eur(p.p)}</b></div><div class=pch>${p.cs?'<span class=csp>🔜 Bientôt disponible</span>':slim(p)&&+p.st<=5?`<span class=lo>⚠️ Plus que ${+p.st} en stock</span>`:(p.sc?'<span>📦 Sur commande · 24 à 48 h max</span>':'<span>✅ Disponible</span>')}${p.pr.length>1?`<span>💰 ${p.pr.length} formats</span>`:''}${p.x.length?'<span>➕ Suppléments possibles</span>':''}<button type=button data-a=shp data-k="${e(p.id)}">↗ Partager</button></div><p class=pd>${e(p.d)}</p>${p.sc&&!p.cs?'<p class=mu style="margin:0 0 8px">📦 Sur commande : vous le recevez sous 24 à 48 h max après votre commande, si le produit est toujours disponible. La boutique vous le confirme dans l’application.</p>':''}${p.ef?`<p class=ef><span>Effets</span>${e(p.ef)}</p>`:''}${labH(p)}${p.pr.length?'<h3>Choisissez votre prix</h3>'+p.pr.map((v,i)=>`<label class=ck><input type=radio name=vp data-c=pv data-k="${i}" ${i?'':'checked'}> ${e(v.n)} <span>${eur(v.p)}</span></label>`).join(''):''}${p.x.length?'<h3>Suppléments</h3>'+p.x.map((x,i)=>`<label class=ck><input type=checkbox data-c=px data-k="${i}"> ${e(x.n)} <span>+${eur(x.p)}</span></label>`).join(''):''}
@@ -3498,7 +3573,7 @@ document.addEventListener('pointerdown',ev=>{const el=ev.target.closest&&ev.targ
 document.addEventListener('pointerup',ev=>{const d=dn;dn=null;if(!d||!fx()||document.querySelector('.aw'))return;if(Math.hypot(ev.clientX-d.x,ev.clientY-d.y)>12)return;ring(ev.clientX,ev.clientY)},{passive:true,capture:true});
 const fly=()=>{try{if(!fx()||!Element.prototype.animate||Date.now()-last.t>2500||document.querySelector('.aw'))return;const tg=document.querySelector('.fab')||document.querySelector('.bar [data-a=cart]');if(!tg)return;const r=tg.getBoundingClientRect();if(!r.width||r.bottom<0||r.top>innerHeight)return;const x0=last.x,y0=last.y,x1=r.left+r.width/2,y1=r.top+r.height/2,d=document.createElement('i');d.className='fly';document.body.appendChild(d);const a=d.animate([{transform:`translate(${x0}px,${y0}px) scale(1.3)`,opacity:1},{transform:`translate(${(x0+x1)/2}px,${Math.min(y0,y1)-80}px) scale(1)`,opacity:1,offset:.5},{transform:`translate(${x1}px,${y1}px) scale(.35)`,opacity:.9}],{duration:650,easing:'cubic-bezier(.4,0,.6,1)',fill:'forwards'});let done=0;const fin=()=>{if(done)return;done=1;d.remove();ring(x1,y1)};a.onfinish=fin;a.oncancel=()=>{done=1;d.remove()};setTimeout(fin,1200)}catch(x){}};
 const f0=A.add;A.add=function(){const n=()=>cart.reduce((a,l)=>a+l.q,0),n0=n(),r=f0.apply(this,arguments);if(n()>n0)requestAnimationFrame(fly);return r};
-if('IntersectionObserver'in window){let k=0;const show=c=>{c.classList.add('rv');setTimeout(()=>c.classList.remove('pre','rv'),900)},io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){io.unobserve(en.target);show(en.target)}}),{threshold:.08}),scan=()=>{if(!fx())return;document.querySelectorAll('.pc:not(.rvo)').forEach(c=>{c.classList.add('rvo');if(c.getBoundingClientRect().top>innerHeight*.98){c.style.setProperty('--i',k++%6);c.classList.add('pre');io.observe(c);setTimeout(()=>show(c),4000)}})};
+if('IntersectionObserver'in window){let k=0;const show=c=>{c.classList.add('rv');setTimeout(()=>c.classList.remove('pre','rv'),900)},io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){io.unobserve(en.target);show(en.target)}}),{threshold:.08}),scan=()=>{if(!fx())return;const L=[...document.querySelectorAll('.pc:not(.rvo)')],Y=L.map(c=>c.getBoundingClientRect().top),H=innerHeight;L.forEach((c,n)=>{c.classList.add('rvo');if(Y[n]>H*.98){c.style.setProperty('--i',k++%6);c.classList.add('pre');io.observe(c);setTimeout(()=>show(c),4000)}})};
 const ap=document.getElementById('app');if(ap)new MutationObserver(()=>{k=0;scan()}).observe(ap,{childList:true,subtree:true});scan()}}
 const FDB=()=>{try{if(C.mode!='Livraison')return'';const z=zc(),t=T();if(!z||!(t.f0>0))return'';const th=zfr(z);if(!(th>0))return'';const r=th-t.sub;return `<div class=fdb role=status><span>${r>0?`🚚 Plus que <b>${eur(r)}</b> pour la livraison offerte`:'🎉 Livraison offerte !'}</span><i class=fdt><b style="width:${Math.max(0,Math.min(100,t.sub/th*100))}%"></b></i></div>`}catch(x){return''}};
 const cartH=()=>{const h=cartH0();return cart.length?(h.includes('</h2>')?h.replace('</h2>','</h2>'+FDB()):FDB()+h):h+(()=>{try{return JSON.parse(localStorage.getItem('lastord')||'[]').length?'<div class=rt style="border:0"><button class=b data-a=reord>🔁 Recommander ma dernière commande</button></div>':''}catch(x){return''}})()};
@@ -3513,13 +3588,13 @@ const p0=TV.prod;TV.prod=function(){const low=S.prods.filter(p=>slim(p)&&+p.st<=
 
 /* Full animation : barre de progression, lueur qui suit la souris, inclinaison des cartes, apparition des sections */
 {const D=document.documentElement,fx=()=>D.dataset.fx!=='off'&&!matchMedia('(prefers-reduced-motion:reduce)').matches,mk=(id)=>{const x=document.createElement('i');x.id=id;document.body.appendChild(x);return x};
-const bar=mk('spb');let tk=0;addEventListener('scroll',()=>{if(tk)return;tk=requestAnimationFrame(()=>{tk=0;bar.style.width=Math.min(100,scrollY/Math.max(1,D.scrollHeight-innerHeight)*100)+'%'})},{passive:true});
+const bar=mk('spb');let tk=0;addEventListener('scroll',()=>{if(tk)return;tk=requestAnimationFrame(()=>{tk=0;bar.style.transform='translateX('+(Math.min(100,scrollY/Math.max(1,D.scrollHeight-innerHeight)*100)-100).toFixed(2)+'%)'})},{passive:true});
 if(matchMedia('(hover:hover) and (pointer:fine)').matches){const g=mk('cgl');let gx=0,gy=0,gr=0,cur=null;
 document.addEventListener('pointermove',ev=>{if(!fx())return;gx=ev.clientX;gy=ev.clientY;g.style.opacity=1;if(!gr)gr=requestAnimationFrame(()=>{gr=0;g.style.transform=`translate(${gx}px,${gy}px)`});
 const c=ev.target.closest&&ev.target.closest('.pc');if(c!==cur){if(cur)['--rx','--ry','--sc'].forEach(k=>cur.style.removeProperty(k));cur=c}
 if(c){const r=c.getBoundingClientRect(),x=(ev.clientX-r.left)/r.width-.5,y=(ev.clientY-r.top)/r.height-.5;c.style.setProperty('--rx',(-y*9).toFixed(2)+'deg');c.style.setProperty('--ry',(x*11).toFixed(2)+'deg');c.style.setProperty('--sc','1.025')}},{passive:true});
 document.addEventListener('pointerleave',()=>{g.style.opacity=0})}
-if('IntersectionObserver'in window){let k=0;const SEL='#app :is(h2,.ib,.zc,.cd,.inf,.lkb,.pmo)',done=c=>{c.classList.add('xin');setTimeout(()=>c.classList.remove('xo','xin'),1100)},io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){io.unobserve(en.target);done(en.target)}}),{threshold:.06}),scan=()=>{if(!fx())return;document.querySelectorAll(SEL+':not(.xdn)').forEach(c=>{c.classList.add('xdn');if(c.getBoundingClientRect().top>innerHeight*.98){c.style.setProperty('--j',k++%5);c.classList.add('xo');io.observe(c);setTimeout(()=>done(c),4500)}})};
+if('IntersectionObserver'in window){let k=0;const SEL='#app :is(h2,.ib,.zc,.cd,.inf,.lkb,.pmo,.nc,.fq,.ft,.bzss,.bzeta,.bzadc,.bzpks,.bztkp)',done=c=>{c.classList.add('xin');setTimeout(()=>c.classList.remove('xo','xin'),1100)},io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){io.unobserve(en.target);done(en.target)}}),{threshold:.06}),scan=()=>{if(!fx())return;const L=[...document.querySelectorAll(SEL+':not(.xdn)')],Y=L.map(c=>c.getBoundingClientRect().top),H=innerHeight;L.forEach((c,n)=>{c.classList.add('xdn');if(Y[n]>H*.98){c.style.setProperty('--j',k++%5);c.classList.add('xo');io.observe(c);setTimeout(()=>done(c),4500)}})};
 const ap=document.getElementById('app');if(ap)new MutationObserver(()=>{k=0;scan()}).observe(ap,{childList:true,subtree:true});scan()}}
 
 /* Neige ❄️ : vrais flocons cristallins (6 branches, pré-rendus en sprites), 3 profondeurs + bokeh, bascule 3D, rafales, dérive au défilement. Réglage admin : aucune / légère / forte. */
@@ -3529,7 +3604,7 @@ cv.style.height=(window.CSS&&CSS.supports&&CSS.supports('height','100lvh'))?'100
 const PX=[.4,.5,.6,.6],TAU=Math.PI*2,rnd=(a,b)=>a+Math.random()*(b-a),
 lvl=()=>D.dataset.fx==='off'||matchMedia('(prefers-reduced-motion:reduce)').matches||document.querySelector('.aw')?0:SNV(),
 /* taille stable : la barre du navigateur qui se replie au défilement ne redimensionne plus la neige */
-size=()=>{const r=Math.min(2,devicePixelRatio||1),w=cv.clientWidth||innerWidth,h=cv.clientHeight||innerHeight,wc=w!==W||r!==R;if(!wc&&h===H)return 0;R=r;W=w;H=h;cv.width=W*R;cv.height=H*R;cx.setTransform(R,0,0,R,0,0);if(SR!==R)SPR=null;return wc},
+size=()=>{const r=Math.min(matchMedia('(pointer:coarse)').matches?1.5:2,devicePixelRatio||1),w=cv.clientWidth||innerWidth,h=cv.clientHeight||innerHeight,wc=w!==W||r!==R;if(!wc&&h===H)return 0;R=r;W=w;H=h;cv.width=W*R;cv.height=H*R;cx.setTransform(R,0,0,R,0,0);if(SR!==R)SPR=null;return wc},
 hexP=r=>{const p=new Path2D();for(let i=0;i<6;i++){const t=i*Math.PI/3;i?p.lineTo(Math.cos(t)*r,Math.sin(t)*r):p.moveTo(r,0)}p.closePath();return p},
 /* branche : segment depuis (x,0) à l'angle an, longueur L */
 br=(p,x,y,an,L)=>{p.moveTo(x,y);p.lineTo(x+Math.cos(an)*L,y+Math.sin(an)*L)},
@@ -3598,7 +3673,7 @@ function frame(){raf=0;const y=Math.max(0,scrollY),H=innerHeight,dv=y-ly;ly=y;ve
 if(!ok()){rl.classList.remove('vis');return}
 const rs=[],tr=[];drum.forEach(el=>el.isConnected?rs.push([el,el.getBoundingClientRect()]):drum.delete(el));tl.forEach(el=>el.isConnected?tr.push([el,el.getBoundingClientRect()]):tl.delete(el));
 const g=$('#pg'),gr=g&&g.getBoundingClientRect(),ht=hs.map(h=>h.isConnected?h.getBoundingClientRect().top:1e9),s=D.style;
-s.setProperty('--o1',(Math.sin(y/700)*70).toFixed(1));s.setProperty('--o2',(Math.cos(y/900)*90).toFixed(1));
+o.style.setProperty('--o1',(Math.sin(y/700)*70).toFixed(1));o.style.setProperty('--o2',(Math.cos(y/900)*90).toFixed(1));
 if(g)g.style.perspectiveOrigin='50% '+Math.round(H/2-gr.top)+'px';
 rs.forEach(([el,r])=>el.style.setProperty('--d',Math.max(-1,Math.min(1,(r.top+r.height/2-H/2)/(H/2))).toFixed(3)));
 tr.forEach(([el,r])=>el.style.setProperty('--p',Math.max(0,Math.min(1,(H*.62-r.top)/r.height)).toFixed(3)));
@@ -3606,7 +3681,7 @@ let a=-1;ht.forEach((t,i)=>{if(t<H*.42)a=i});rl.classList.toggle('vis',hs.length
 if(mqa)mqa.playbackRate=1+Math.min(5,Math.abs(vel)*.25);
 if(Math.abs(vel)>.05||dv)kick()}
 const scan=()=>{if(!ok()){rl.replaceChildren();hk='';return}const H=innerHeight,Q=(q,f)=>document.querySelectorAll(q).forEach(f);
-Q('.pc,.cd,.ib,.zc,.tx,.sp,.fq,.lkb,.tls,.sti,.brand,.mq',el=>{if(!el.dataset.sz){el.dataset.sz=1;zio.observe(el)}});
+Q('.pc,.cd,.ib,.zc,.tx,.sp,.fq,.lkb,.tls,.sti,.brand,.mq,.bzss,.bzeta,.bzadc,.bzpks,.bztkp,.cta',el=>{if(!el.dataset.sz){el.dataset.sz=1;zio.observe(el)}});
 Q('#pg .pc',c=>{if(!c.dataset.sd){c.dataset.sd=1;c.classList.add('sfi');dio.observe(c)}});
 Q('.tl',c=>{if(!c.dataset.sl){c.dataset.sl=1;lio.observe(c)}});
 Q('.tls,.sti',c=>{if(c.dataset.st)return;c.dataset.st=1;if(c.getBoundingClientRect().top<H*.98)c.classList.add('on','sfn');else tio.observe(c)});
@@ -4018,5 +4093,92 @@ ADV();FIC();BIS();TKT();STO();PKS();ETA();
 bzEtaPoll();setInterval(bzEtaPoll,45000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)bzEtaPoll()});
 {let t=0;const iv=setInterval(()=>{if(bzBisChk()||++t>80)clearInterval(iv)},1500)}
 try{render()}catch(x){}}
+
+
+/* ===== MOTION v62 : mouvement premium =====
+   Purement visuel : ajoute des classes, des styles d'affichage et des animations (transform / opacity).
+   Aucune donnée, aucun appel réseau, aucune logique de boutique, de panier, de compte ou d'admin modifiée.
+   Coupé si « Effets animés » est désactivé ou si l'appareil demande de réduire les animations. */
+var MZ={cl:null,pv:undefined,chip:null,sub:null,fav:null,sw:null,dt:0,it:0};
+function mzOk(){try{return document.documentElement.dataset.fx!=='off'&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)}catch(x){return false}}
+/* Écran de démarrage (aussi écrit dans le fichier publié) : aux couleurs du thème, retiré au premier affichage */
+function mzBootH(){let c='#007ceb';try{c=String((S&&S.shop&&S.shop.c1)||c).replace(/[^#\w(),.% -]/g,'')||'#007ceb'}catch(x){}return '<div class=mzboot aria-hidden=true style="--mzc:'+c+'"><i></i><i></i><b></b></div>'}
+
+/* ---------- Avant / après chaque affichage (render) ---------- */
+function mzR0(){try{const c=document.querySelector('#app .ch.on[data-a=cat]');MZ.chip=c?{k:c.dataset.k,r:c.getBoundingClientRect()}:null;MZ.sub=(typeof SUBS!=='undefined'&&typeof TAB!=='undefined')?TAB+':'+SUBS[TAB]:null;MZ.fav=document.documentElement.dataset.favf||''}catch(x){MZ.chip=null}}
+function mzR1(){try{const v=V+(typeof AM!=='undefined'&&AM?'1':'0'),pv=MZ.pv;MZ.pv=v;mzBrand();if(!mzOk()||pv===undefined)return;
+const w=document.querySelector('#app>.w');if(!w)return;
+/* changement d'écran : boutique ↔ administration */
+if(pv!==v){w.classList.remove('mz-in');void w.offsetWidth;w.classList.add('mz-in');clearTimeout(MZ.it);MZ.it=setTimeout(()=>{const x=document.querySelector('#app>.w');if(x)x.classList.remove('mz-in')},1300);return}
+/* sous-onglet de l'administration : même arrivée en cascade que les onglets */
+const sb=(typeof SUBS!=='undefined'&&typeof TAB!=='undefined')?TAB+':'+SUBS[TAB]:null;if(V=='adm'&&MZ.sub&&sb!==MZ.sub&&MZ.sub.split(':')[0]===String(TAB)&&typeof an==='function')an('at');
+/* filtre « favoris » : les cartes arrivent comme pour un changement de catégorie */
+if(V=='shop'&&(document.documentElement.dataset.favf||'')!==MZ.fav&&typeof an==='function')an('ac');
+/* catégorie : la pastille choisie glisse depuis la place de l'ancienne */
+const o=MZ.chip,n=document.querySelector('#app .ch.on[data-a=cat]');if(o&&n&&n.dataset.k!==o.k&&n.animate){const r=n.getBoundingClientRect(),dx=o.r.left-r.left,dy=o.r.top-r.top;if((Math.abs(dx)>2||Math.abs(dy)>2)&&Math.abs(dy)<160){n.classList.add('mz-mv');const a=n.animate([{transform:'translate('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px) scale(1.06)'},{transform:'translate(0,0) scale(1)'}],{duration:540,easing:'cubic-bezier(.2,1.3,.35,1)'});a.onfinish=a.oncancel=()=>n.classList.remove('mz-mv')}}}catch(x){}}
+
+/* ---------- Fenêtres : fermeture animée quand l'app la ferme elle-même, fondu quand le contenu change ---------- */
+function mzTt(ov){const t=ov&&ov.querySelector('.sh h2,.sh h3');return t?t.textContent.trim().slice(0,80):''}
+function mzM0(m,h){try{
+if(MZ.cl){const c=MZ.cl;if(!h)return true;clearTimeout(c.t);MZ.cl=null;m.innerHTML='';m.className=''}
+const ov=m.firstElementChild;if(h){MZ.sw=ov?mzTt(ov):null;return false}
+MZ.sw=null;if(!ov)return false;const sh=ov.querySelector('.sh');
+/* « Fermer », toucher dehors et glisser vers le bas ont déjà leur animation : on ne double pas */
+if(!sh||sh.dataset.c||!mzOk()||document.querySelector('.aw'))return false;
+ov.style.pointerEvents='none';sh.dataset.c=1;sh.style.transition='transform .24s cubic-bezier(.5,0,.75,.15)';sh.style.transform='translateY(100%)';ov.style.transition='opacity .24s ease';ov.style.opacity=0;mzDepth(false);
+const c={};c.t=setTimeout(()=>{if(MZ.cl!==c)return;MZ.cl=null;m.className='';m.innerHTML='';mzDepth(false)},240);MZ.cl=c;return true}catch(x){return false}}
+function mzM1(m,h){try{if(!m.firstElementChild){mzDepth(false);return}if(!mzOk())return;mzDepth(true);
+if(h&&MZ.sw!==null&&!m.classList.contains('op')){const sh=m.querySelector('.sh');if(sh&&mzTt(m.firstElementChild)!==MZ.sw){sh.classList.add('mz-sw');setTimeout(()=>sh.classList.remove('mz-sw'),800)}}}catch(x){}}
+
+/* ---------- Profondeur : la page recule derrière la fenêtre (chaque bloc visible zoome vers le même point) ---------- */
+function mzDepth(on){try{const B=document.body;
+if(!on){if(!B.classList.contains('mz-mo'))return;B.classList.remove('mz-mo');clearTimeout(MZ.dt);MZ.dt=setTimeout(()=>{if(B.classList.contains('mz-mo'))return;document.querySelectorAll('.mz-dp').forEach(k=>{k.classList.remove('mz-dp');k.style.transformOrigin=''})},800);return}
+if(B.classList.contains('mz-mo')||!mzOk()||V!=='shop'||document.querySelector('.aw'))return;
+const w=document.querySelector('#app>.w');if(!w)return;clearTimeout(MZ.dt);
+const K=[...w.children],R=K.map(k=>k.getBoundingClientRect()),P=K.map(k=>getComputedStyle(k).position),F=K.map(k=>!!k.querySelector('.fab,.cb,.up')),cx=innerWidth/2,cy=innerHeight*.45,H=innerHeight;
+K.forEach((k,i)=>{const r=R[i];if(P[i]==='fixed'||P[i]==='sticky'||F[i]||!r.width||r.bottom<-60||r.top>H+60)return;k.style.transformOrigin=(cx-r.left).toFixed(1)+'px '+(cy-r.top).toFixed(1)+'px';k.classList.add('mz-dp')});
+void w.offsetWidth;B.classList.add('mz-mo')}catch(x){}}
+
+/* ---------- Envol produit : la photo de la carte vole et s'agrandit jusqu'à sa place dans la fiche ---------- */
+function mzFly(fr,bg){const m=document.getElementById('m'),sh=m&&m.querySelector('.sh'),sl=sh&&sh.querySelector('.sl'),t=sl&&sl.firstElementChild;
+if(!t||!m.classList.contains('op')||!document.body.animate)return;
+m.classList.add('mz-ms');const tr=t.getBoundingClientRect();m.classList.remove('mz-ms');if(!tr.width||!tr.height||tr.top>innerHeight)return;
+let to={x:tr.left,y:tr.top,w:tr.width,h:tr.height};const img=t.tagName==='IMG';
+if(img&&t.naturalWidth&&t.naturalHeight){const k=Math.min(tr.width/t.naturalWidth,tr.height/t.naturalHeight),w=t.naturalWidth*k,h=t.naturalHeight*k;to={x:tr.left+(tr.width-w)/2,y:tr.top+(tr.height-h)/2,w,h}}
+const s=Math.max(fr.width/to.w,fr.height/to.h),ix=Math.max(0,(to.w-fr.width/s)/2),iy=Math.max(0,(to.h-fr.height/s)/2),dx=(fr.left+fr.width/2)-(to.x+to.w/2),dy=(fr.top+fr.height/2)-(to.y+to.h/2);
+const d=document.createElement('div');d.className='mzfly';d.setAttribute('aria-hidden','true');d.style.cssText='left:'+to.x+'px;top:'+to.y+'px;width:'+to.w+'px;height:'+to.h+'px;background-image:'+bg;document.body.appendChild(d);
+const vid=!img;if(!vid)t.style.visibility='hidden';m.classList.add('mz-fl');
+const K=[{transform:'translate('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px) scale('+s.toFixed(4)+')',clipPath:'inset('+iy.toFixed(1)+'px '+ix.toFixed(1)+'px round '+(14/s).toFixed(1)+'px)',opacity:1},{transform:'translate(0px,0px) scale(1)',clipPath:'inset(0px 0px round 18px)',opacity:1}];
+if(vid){K[1].opacity=0;K.splice(1,0,{offset:.62,opacity:1})}
+let done=0;const a=d.animate(K,{duration:580,easing:'cubic-bezier(.25,.85,.25,1)',fill:'forwards'}),
+fin=()=>{if(done)return;done=1;t.style.visibility='';setTimeout(()=>m.classList.remove('mz-fl'),300);if(vid){d.remove();return}const b=d.animate([{opacity:1},{opacity:0}],{duration:200,easing:'ease-out',fill:'forwards'});b.onfinish=()=>d.remove();setTimeout(()=>d.remove(),500)};
+a.onfinish=fin;a.oncancel=()=>{done=1;t.style.visibility='';d.remove();m.classList.remove('mz-fl')};setTimeout(fin,1100)}
+
+/* ---------- Logo : légère parallaxe au défilement (seulement en haut de la boutique) ---------- */
+function mzBrand(){try{const b=document.querySelector('#app .brand');if(!b)return;if(!mzOk()||V!=='shop'){if(b.style.translate){b.style.translate='';b.style.scale='';b.style.opacity=''}return}
+const y=Math.max(0,scrollY),H=innerHeight;if(y>H*1.3)return;const p=Math.min(1,y/(H*.9));b.style.translate='0 '+(y*.28).toFixed(1)+'px';b.style.scale=(1-p*.08).toFixed(4);b.style.opacity=(1-p*.5).toFixed(3)}catch(x){}}
+
+/* ---------- Branchements ---------- */
+(function(){try{
+/* fiche produit : envol de la photo */
+const p0=A.prod;A.prod=function(el){let fr=null,bg='';try{if(mzOk()&&el&&el.closest&&!document.querySelector('.aw')){const c=el.closest('.pc'),ph=c&&c.querySelector('.ph');if(ph&&ph.style.backgroundImage&&ph.style.backgroundImage!=='none'){const r=ph.getBoundingClientRect();if(r.width&&r.bottom>0&&r.top<innerHeight){fr=r;bg=ph.style.backgroundImage}}}}catch(x){}
+const r=p0.apply(this,arguments);if(fr)try{mzFly(fr,bg)}catch(x){}return r};
+/* « Fermer » / glisser vers le bas : la page revient dès que la fenêtre commence à partir */
+const mm=document.getElementById('m');if(mm)new MutationObserver(ms=>{for(const x of ms)if(x.attributeName==='data-c'&&x.target.dataset&&x.target.dataset.c){mzDepth(false);break}}).observe(mm,{attributes:true,subtree:true,attributeFilter:['data-c']});
+/* ordinateur : lumière qui suit la souris et photo en profondeur sur les cartes */
+if(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches){let cur=null,raf=0,lx=0,ly=0,tg=null;const SH='.pc,.bzpkc,.bzadc';
+const upd=()=>{raf=0;if(!mzOk()||document.querySelector('.aw')){if(cur){cur.classList.remove('mz-hv');cur=null}return}const c=tg&&tg.closest?tg.closest(SH):null;if(c!==cur){if(cur)cur.classList.remove('mz-hv');cur=c;if(c)c.classList.add('mz-hv')}if(!c)return;const r=c.getBoundingClientRect();if(!r.width)return;const x=(lx-r.left)/r.width,y=(ly-r.top)/r.height;
+c.style.setProperty('--mzx',(x-.5).toFixed(3));c.style.setProperty('--mzy',(y-.5).toFixed(3));c.style.setProperty('--kmx',(x*100).toFixed(1)+'%');c.style.setProperty('--kmy',(y*100).toFixed(1)+'%')};
+document.addEventListener('pointermove',ev=>{if(ev.pointerType&&ev.pointerType!=='mouse')return;lx=ev.clientX;ly=ev.clientY;tg=ev.target;if(!raf)raf=requestAnimationFrame(upd)},{passive:true});
+document.documentElement.addEventListener('pointerleave',()=>{tg=null;if(!raf)raf=requestAnimationFrame(upd)})}
+/* glisser la fenêtre vers le bas : la page derrière revient au même rythme que le doigt */
+{let r=0;const drag=()=>{r=0;if(!document.body.classList.contains('mz-mo'))return;const s=document.querySelector('#m .sh');if(!s||s.style.transition!=='none')return;const m=/translateY\(([\d.]+)px\)/.exec(s.style.transform||'');const p=m?Math.min(1,parseFloat(m[1])/(innerHeight*.6)):0;document.querySelectorAll('.mz-dp').forEach(k=>{k.style.transition='none';k.style.scale=(.94+.06*p).toFixed(4)})};
+document.addEventListener('touchmove',()=>{if(!r)r=requestAnimationFrame(drag)},{passive:true});
+const rel=()=>{document.querySelectorAll('.mz-dp').forEach(k=>{if(k.style.scale||k.style.transition){k.style.transition='';k.style.scale=''}})};document.addEventListener('touchend',rel,{passive:true});document.addEventListener('touchcancel',rel,{passive:true})}
+/* parallaxe du logo */
+{let r=0;addEventListener('scroll',()=>{if(!r)r=requestAnimationFrame(()=>{r=0;mzBrand()})},{passive:true})}
+/* premier affichage déjà fait avant ce module : on mémorise l'écran courant */
+MZ.pv=V+(typeof AM!=='undefined'&&AM?'1':'0');mzBrand();
+}catch(x){}})();
 
 </script></body></html>
